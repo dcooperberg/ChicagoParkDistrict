@@ -1,0 +1,25 @@
+    google.load('visualization', '1', {packages:['table']});
+    google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawTable);
+      function drawTable() {
+        <?php
+        include 'GetData.php';
+        echo "var data = google.visualization.arrayToDataTable([['Race', 'percentage'],\n";
+        $data = printRows(getData("testdata.csv"),1,100);
+            for ($j=5;$j<count($data[0]);$j++){
+                echo "['".$data[0][$j]."', ".$data[1][$j]."]";
+                if ($j < count($data[0])-1){
+                    echo ",\n";
+                } else {
+                    echo "]);\n";
+                }
+            }
+        ?>
+
+        var options = {
+          title: 'My Daily Activities'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('contactdiv'));
+        chart.draw(data, options);
+      }
