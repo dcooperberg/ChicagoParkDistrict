@@ -1,9 +1,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
-  <?php
 
-  ?>
   <head>
     <meta charset="utf-8">
     <title>CPD Analytics Portal</title>
@@ -37,51 +35,36 @@
   <script type='text/javascript' src='https://www.google.com/jsapi'></script>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script type='text/javascript' src='https://www.google.com/jsapi'></script>
+    <script type='text/javascript' src='bootleg.js'></script>
+
   <script type="text/javascript">
     google.load('visualization', '1', {packages:['table']});
     google.load("visualization", "1", {packages:["corechart"]});
-    google.setOnLoadCallback(visualizations);
-    function visualizations() {
-        <?php
+    
+    <?php
         include 'GetData.php';
         include 'visualizations.php';
-        $data = colRange(rowRange(getData("testdata.csv"),1,1000),0,7);
-        visualizations($data);
-        ?>
-        var options = {
-            showRowNumber: false,
-            page: 'enable',
-            pageSize: 20,
-            sortColumn: 0
-        }
-        var options1 = {
-          title: 'Race Percentages',
-          legend: {position:'none'},
-          height: 250
-        };
-        var options2 = {
-          title: 'Race vs. Income Comparison',
-          hAxis: {title: 'Income', minValue: 0},
-          vAxis: {title: 'Percentage Race', minValue: 0},
-          colors: ['wheat','#993300'],
-          legend: 'none',
-          height: 250
-        };
-        
-        var table = new google.visualization.Table(document.getElementById('contactdiv'));
-        table.draw(data, options);
-        var chart1 = new google.visualization.PieChart(document.getElementById('chart_div'));
-        chart1.draw(data1, options1);
-        var chart2 = new google.visualization.ScatterChart(document.getElementById('scatter_div'));
-        chart2.draw(data2, options2);
-    }
+        $data = colRange(rowRange(getData("testdata.csv"),0,1000),0,7);
+    ?>
+    //google.setOnLoadCallback(createTable);
     
     $(document).ready(function(){
-        $("#main-container").load("home.php");
+        $("#main-container").load("home.php", function(responseTxt,statusTxt,xhr){
+                if(statusTxt=="success"){
+                  <?php
+                  piechart($data);
+                  scatterplot($data);
+                  ?>
+                  createPie(pieData);
+                  createScatter(scatterData);
+                }
+                if(statusTxt=="error"){
+                  alert("Error: "+xhr.status+": "+xhr.statusText);
+                }
+            });
     });
     function initialize(){
         $(".viz").hide();
-        $("#homediv").show();
         $(".reload").click(function(){
             $(".viz").hide();
             $("#main-container").show()
@@ -91,8 +74,28 @@
             $("li").removeClass("active");
             $("li#"+val).addClass("active");
             $("#"+val+"div").show();
-            $("#main-container").load(val+".php");
-        });
+            $("#main-container").load(val+".php", function(responseTxt,statusTxt,xhr){
+                if(statusTxt=="success"){
+                  alert("External content loaded successfully!");
+                  if (val == "contact"){
+                    <?php
+                    table($data);
+                    ?>
+                    createTable(data);
+                  } else if (val == "home"){
+                    <?php
+                    piechart($data);
+                    scatterplot($data);
+                    ?>
+                    createPie(pieData);
+                    createScatter(scatterData);
+                  }
+                }
+                if(statusTxt=="error"){
+                  alert("Error: "+xhr.status+": "+xhr.statusText);
+                }
+            });
+                });
     }
 </script>
   <body onload="initialize()">
@@ -122,17 +125,7 @@
       
     <div id="main-container" class="container"></div>
     <div id="contactdiv" class="viz container"></div>
-    <div class="viz container" id="homediv">
-        <div id="chart_div" class="span4">
-            <p style='text-align:center'><img style='top:50px;height:50px' src='assets/img/spinner.gif'></p>
-        </div>
-        <div id="scatter_div" class="span4">
-            <p style='text-align:center'><img style='top:50px;height:50px' src='assets/img/spinner.gif'></p>
-        </div>
-        <div id="d3div" class="span4">
-            <p style='text-align:center'><img style='top:50px;height:50px' src='assets/img/spinner.gif'></p>
-        </div>
-    </div>
+    
     <!-- /container -->
     <div id="footer">
       <div class="container">

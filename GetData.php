@@ -17,7 +17,12 @@ function getData($url){
 
 function rowRange($data,$start,$end){
     $table = array();
-    array_push($table, $data[0]);
+    if ($start < 0){
+        $start = 0;
+    }
+    if ($start > 0){
+        array_push($table, $data[0]);
+    }
     if ($end < $start){
         $end = count($data)-1;
     } elseif ($end > count($data)-1){

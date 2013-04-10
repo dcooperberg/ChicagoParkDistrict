@@ -4,7 +4,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-function visualizations($data){
+function table($data){
     echo "var data = google.visualization.arrayToDataTable([";
     for ($i=0; $i< count($data); $i++){
         echo "[";
@@ -22,8 +22,9 @@ function visualizations($data){
             echo "]);\n";
         }
     }
-
-    echo "var data1 = google.visualization.arrayToDataTable([";
+}
+function piechart($data){
+    echo "var pieData = google.visualization.arrayToDataTable([";
     echo "['Race', 'Percentage'],";
     $vals = array(0,0,0);
     for ($i=5; $i<count($data[0]);$i++){
@@ -37,8 +38,9 @@ function visualizations($data){
             echo "]);\n";
         }
     }
-
-    echo "var data2 = google.visualization.arrayToDataTable([";
+}
+function scatterplot($data){
+    echo "var scatterData = google.visualization.arrayToDataTable([";
     echo "['".strtoupper($data[0][4])."', '".strtoupper($data[0][5])."', '".strtoupper($data[0][6])."'],\n";
     for ($i=1; $i<count($data); $i++){
         echo "[".$data[$i][4].", ".$data[$i][5].", ".$data[$i][6]."]";

@@ -15,7 +15,8 @@ for ($i=0; $i<count($data);$i++){
 
 <!-- OR -->
 <div id="table_div"></div>
+
 <script>  
     $("#main-container").hide()
-    $("contactdiv").show
+    $("contactdiv").show();
 </script>
