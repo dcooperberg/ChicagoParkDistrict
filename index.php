@@ -15,6 +15,10 @@
       body {
         padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
       }
+
+        .selected {
+            height: 50;
+        }
     </style>
     
     <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
@@ -33,9 +37,9 @@
   </head>
   <script src="http://d3js.org/d3.v3.min.js"></script>
   <script type='text/javascript' src='https://www.google.com/jsapi'></script>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script type='text/javascript' src='https://www.google.com/jsapi'></script>
-    <script type='text/javascript' src='bootleg.js'></script>
+  <script type='text/javascript' src="assets/js/raphael-min.js"></script>
+  <script type='text/javascript' src="assets/js/jquery.js"></script>
+  <script type='text/javascript' src='bootleg.js'></script>
 
   <script type="text/javascript">
     google.load('visualization', '1', {packages:['table']});
@@ -44,19 +48,23 @@
     <?php
         include 'GetData.php';
         include 'visualizations.php';
-        $data = colRange(rowRange(getData("testdata.csv"),0,1000),0,7);
+        $data = colRange(rowRange(getData("testdata1.csv"),0,1000),0,29);
     ?>
     //google.setOnLoadCallback(createTable);
     
     $(document).ready(function(){
         $("#main-container").load("home.php", function(responseTxt,statusTxt,xhr){
                 if(statusTxt=="success"){
+                  var values = [];
+                  var labels = [];
                   <?php
-                  piechart($data);
-                  scatterplot($data);
+                  googlePie($data);
+                  googleScatter($data);
+                  raphaelPie($data);
                   ?>
-                  createPie(pieData);
-                  createScatter(scatterData);
+                  drawPie(pieData,'pie_div','google');
+                  drawScatter(scatterData,'scatter_div');
+                  drawPie(pieData,'chart_div','raphael',values,labels);
                 }
                 if(statusTxt=="error"){
                   alert("Error: "+xhr.status+": "+xhr.statusText);
@@ -64,31 +72,35 @@
             });
     });
     function initialize(){
-        $(".viz").hide();
+        //$(".viz").hide();
         $(".reload").click(function(){
-            $(".viz").hide();
-            $("#main-container").show()
-            $("#main-container").html("<p style='text-align:center'><img style='top:50px;height:50px' src='assets/img/spinner.gif'></p>");
-            hash = this.href.indexOf("#");
-            val = this.href.substring(hash+1);
+            //$(".viz").hide();
+            //$("#main-container").show()
+            $("#main-container").html("<p style='text-align:center;top:100px;position:relative'><img style='top:50px;height:50px' src='assets/img/spinner.gif'></p>");
+            var hash = this.href.indexOf("#");
+            var val = this.href.substring(hash+1);
             $("li").removeClass("active");
             $("li#"+val).addClass("active");
             $("#"+val+"div").show();
             $("#main-container").load(val+".php", function(responseTxt,statusTxt,xhr){
                 if(statusTxt=="success"){
-                  alert("External content loaded successfully!");
+                  //alert("External content loaded successfully!");
                   if (val == "contact"){
                     <?php
-                    table($data);
+                    googleTable(colRange($data,0,4));
                     ?>
-                    createTable(data);
+                    drawTable(data,'contactdiv');
                   } else if (val == "home"){
+                    var values = [];
+                    var labels = [];
                     <?php
-                    piechart($data);
-                    scatterplot($data);
+                    googlePie($data);
+                    googleScatter($data);
+                    raphaelPie($data);
                     ?>
-                    createPie(pieData);
-                    createScatter(scatterData);
+                    drawPie(pieData,'pie_div','google');
+                    drawScatter(scatterData,'scatter_div');
+                    drawPie(pieData,'chart_div','raphael',values,labels);
                   }
                 }
                 if(statusTxt=="error"){
@@ -124,13 +136,16 @@
     </div>
       
     <div id="main-container" class="container"></div>
-    <div id="contactdiv" class="viz container"></div>
     
     <!-- /container -->
     <div id="footer">
       <div class="container">
           <br>
-        <p class="muted credit">Portal courtesy of <a href="#">Scott Albrecht</a>, <a href="#">David Cooperberg</a>, <a href="#">Laura Siahaan</a> and <a href="#">Alice Zhao</a>.</p>
+        <p class="muted credit">Portal courtesy of 
+            <a target="_blank" href="http://www.analytics.northwestern.edu/student/student_profiles/Albrecht-Scott-Northwestern-University-Master-of-Science-in-Analytics.html">Scott Albrecht</a>, 
+            <a target="_blank" href="http://www.analytics.northwestern.edu/student/student_profiles/David-Cooperberg-Master-of-Science-in-Analytics-Northwestern-Universityg-.html">David Cooperberg</a>, 
+            <a target="_blank" href="http://www.analytics.northwestern.edu/student/student_profiles/Siahaan-Laura-Northwestern-University-Master-of-Science-in-Analytics.html">Laura Siahaan</a> and 
+            <a target="_blank" href="http://www.analytics.northwestern.edu/student/student_profiles/Zhao-Alice-Northwestern-University-Master-of-Science-in-Analytics.html">Alice Zhao</a>.</p>
       </div>
     </div>
     <!-- Le javascript

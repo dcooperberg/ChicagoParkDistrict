@@ -12,11 +12,11 @@ for ($i=0; $i<count($data);$i++){
 }*/
 ?>
 </table>
-
+<div id="contactdiv"></div>
 <!-- OR -->
 <div id="table_div"></div>
 
 <script>  
-    $("#main-container").hide()
-    $("contactdiv").show();
+    //$("#main-container").hide()
+    //$("contactdiv").show();
 </script>

@@ -4,12 +4,35 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-function table($data){
+function googleTable($data){
     echo "var data = google.visualization.arrayToDataTable([";
-    for ($i=0; $i< count($data); $i++){
+    $type = array();
+    for ($k=0; $k<count($data[0]); $k++){
+        if (is_numeric($data[2][$k])){
+            array_push($type,"numeric");
+        } else {
+            array_push($type,"string");
+        }
+    }
+    echo "[";
+    for ($jj=0; $jj<count($data[0]); $jj++){
+        echo "'".$data[0][$jj]."'";
+        if ($jj<count($data[0])-1){
+            echo ",";
+        } else {
+            echo "],";
+        }
+    }
+    for ($i=1; $i< count($data); $i++){
         echo "[";
         for ($j=0; $j<count($data[0]); $j++){
-            echo "'".$data[$i][$j]."'";
+            if ($type[$j] == "string"){
+                echo "'";
+            }
+            echo $data[$i][$j];
+            if ($type[$j] == "string"){
+                echo "'";
+            }
             if ($j<count($data[0])-1){
                 echo ",";
             } else {
@@ -23,32 +46,50 @@ function table($data){
         }
     }
 }
-function piechart($data){
+function googlePie($data){
     echo "var pieData = google.visualization.arrayToDataTable([";
     echo "['Race', 'Percentage'],";
     $vals = array(0,0,0);
-    for ($i=5; $i<count($data[0]);$i++){
+    for ($i=27; $i<count($data[0]);$i++){
         for ($j=1; $j<count($data); $j++){
-            $vals[$i-5] = $vals[$i-5] + $data[$j][$i];
+            $vals[$i-27] = $vals[$i-27] + floatval($data[$j][$i]);
         }
-        echo "['".strtoupper($data[0][$i])."', ".$vals[$i-5]."]";
+        echo "['".strtoupper($data[0][$i])."', ".$vals[$i-27]."]";
         if ($i < count($data[0])-1){
-            echo ",\n";
+            echo ",";
         } else {
             echo "]);\n";
         }
     }
 }
-function scatterplot($data){
+function googleScatter($data){
     echo "var scatterData = google.visualization.arrayToDataTable([";
-    echo "['".strtoupper($data[0][4])."', '".strtoupper($data[0][5])."', '".strtoupper($data[0][6])."'],\n";
+    echo "['".strtoupper($data[0][16])."', '".strtoupper($data[0][21])."'],\n";
     for ($i=1; $i<count($data); $i++){
-        echo "[".$data[$i][4].", ".$data[$i][5].", ".$data[$i][6]."]";
+        echo "[".$data[$i][16].", ".$data[$i][21]."]";
         if ($i<count($data)-1){
-            echo ",\n";
+            echo ",";
         } else {
             echo "]);\n";
         }
+    }
+}
+
+function raphaelPie($data){
+    $vals = array();
+    $labs = array();
+    for ($h=0; $h<11;$h++){
+        array_push($vals,0);
+        array_push($labs,$data[0][$h+7]);
+    }
+    for ($i=0; $i<count($data);$i++){
+        for ($j=7; $j<18; $j++){
+            $vals[$j-7] = $vals[$j-7] + $data[$i][$j];
+        }
+    }
+    for ($k=0; $k<count($vals);$k++){
+            echo "values.push(parseInt('".$vals[$k]."',10));\n";
+            echo "labels.push('".$labs[$k]."');\n";
     }
 }
 ?>
