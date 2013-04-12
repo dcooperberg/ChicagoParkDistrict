@@ -76,7 +76,7 @@
         $(".reload").click(function(){
             //$(".viz").hide();
             //$("#main-container").show()
-            $("#main-container").html("<p style='text-align:center;top:100px;position:relative'><img style='top:50px;height:50px' src='assets/img/spinner.gif'></p>");
+            $("#main-container").html("<p class='spinner' style='text-align:center;top:100px;position:relative'><img style='top:50px;height:50px' src='assets/img/spinner.gif'></p>");
             var hash = this.href.indexOf("#");
             var val = this.href.substring(hash+1);
             $("li").removeClass("active");
@@ -104,6 +104,7 @@
                   }
                 }
                 if(statusTxt=="error"){
+                    $(".spinner").hide();
                   alert("Error: "+xhr.status+": "+xhr.statusText);
                 }
             });

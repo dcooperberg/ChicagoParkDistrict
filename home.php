@@ -15,7 +15,7 @@
     <p class="spinner" style='text-align:center;top:100px;position:relative'><img style='top:50px;height:50px' src='assets/img/spinner.gif'></p>
 </div>
 <div id="scatter_div" class="span4" style="height:250px">
-    <p style='text-align:center;top:100px;position:relative'><img style='top:50px;height:50px' src='assets/img/spinner.gif'></p>
+    <p class="spinner" style='text-align:center;top:100px;position:relative'><img style='top:50px;height:50px' src='assets/img/spinner.gif'></p>
 </div>
 <div id="pie_div" class="span4" style="height:250px">
     <p class="spinner" style='text-align:center;top:100px;position:relative'><img style='top:50px;height:50px' src='assets/img/spinner.gif'></p>
