@@ -48,7 +48,7 @@
     <?php
         include 'GetData.php';
         include 'visualizations.php';
-        $data = colRange(rowRange(getData("testdata1.csv"),0,1000),0,29);
+        $data = colRange(rowRange(getData("testdata1.csv"),0,5500),0,29);
     ?>
     //google.setOnLoadCallback(createTable);
     
@@ -58,13 +58,13 @@
                   var values = [];
                   var labels = [];
                   <?php
-                  googlePie($data);
+                  googlePie($data,"pieData");
                   googleScatter($data);
                   raphaelPie($data);
                   ?>
                   drawPie(pieData,'pie_div','google');
-                  drawScatter(scatterData,'scatter_div');
-                  drawPie(pieData,'chart_div','raphael',values,labels);
+                  drawScatter(scatterData,'scatter_div','google');
+                  drawPie(pieData,'chart_div','raphael',values,labels,"Participation by Group");
                 }
                 if(statusTxt=="error"){
                   alert("Error: "+xhr.status+": "+xhr.statusText);
@@ -94,13 +94,22 @@
                     var values = [];
                     var labels = [];
                     <?php
-                    googlePie($data);
+                    googlePie($data,"pieData");
                     googleScatter($data);
                     raphaelPie($data);
                     ?>
                     drawPie(pieData,'pie_div','google');
-                    drawScatter(scatterData,'scatter_div');
-                    drawPie(pieData,'chart_div','raphael',values,labels);
+                    drawScatter(scatterData,'scatter_div','google');
+                    drawPie(pieData,'chart_div','raphael',values,labels,"Participation by Group");
+                  } else if (val == "segment"){
+                      var values1 = [];
+                      var labels1 = [];
+                      <?php
+                      $programs = getData('testcluster1.csv');
+                      clusterPie(addCluster($data,$programs,"Program Cluster"),"Program Cluster");
+                      ?>
+                      var clusData;
+                      drawPie(clusData,'pie_div','raphael',values1,labels1,"Cluster Distribution");
                   }
                 }
                 if(statusTxt=="error"){
@@ -137,11 +146,10 @@
     </div>
       
     <div id="main-container" class="container"></div>
-    
     <!-- /container -->
+    <hr>
     <div id="footer">
       <div class="container">
-          <br>
         <p class="muted credit">Portal courtesy of 
             <a target="_blank" href="http://www.analytics.northwestern.edu/student/student_profiles/Albrecht-Scott-Northwestern-University-Master-of-Science-in-Analytics.html">Scott Albrecht</a>, 
             <a target="_blank" href="http://www.analytics.northwestern.edu/student/student_profiles/David-Cooperberg-Master-of-Science-in-Analytics-Northwestern-Universityg-.html">David Cooperberg</a>, 

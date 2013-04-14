@@ -46,8 +46,8 @@ function googleTable($data){
         }
     }
 }
-function googlePie($data){
-    echo "var pieData = google.visualization.arrayToDataTable([";
+function googlePie($data,$var){
+    echo "var ".$var." = google.visualization.arrayToDataTable([";
     echo "['Race', 'Percentage'],";
     $vals = array(0,0,0);
     for ($i=27; $i<count($data[0]);$i++){
@@ -90,6 +90,52 @@ function raphaelPie($data){
     for ($k=0; $k<count($vals);$k++){
             echo "values.push(parseInt('".$vals[$k]."',10));\n";
             echo "labels.push('".$labs[$k]."');\n";
+    }
+}
+
+function clusterPie($data,$type){
+    $vals = array();
+    $labs = array();
+    $index = -1;
+    for ($i=0;$i<count($data[0]);$i++){
+        if ($data[0][$i] == $type){
+            $index = $i;
+        }
+    }
+    array_push($labs,$data[1][$index]);
+    array_push($vals,0);
+    for ($j=2;$j<count($data);$j++){
+        $new = true;
+        for ($k=0;$k<count($labs);$k++){
+            if ($labs[$k] === $data[$j][$index]){
+                $new = false;
+            }
+        }
+        if ($new == true){
+            array_push($labs,$data[$j][$index]);
+            array_push($vals,0);
+        }
+        $new = true;
+    }
+    for ($l=1;$l<count($data);$l++){
+        for ($m=0;$m<count($labs);$m++){
+            if ($data[$l][$index] == $labs[$m]){
+                $vals[$m] = $vals[$m] + 1;
+            }
+        }
+    }
+    for ($k=0; $k<count($vals);$k++){
+            echo "values1.push(parseInt('".$vals[$k]."',10));\n";
+            echo "labels1.push('".$labs[$k]."');\n";
+    }
+}
+
+function raphaelScatter($data){
+    $list = array();
+    $axisx = array();
+    $axisy = array();
+    for ($i=0;$i<count($data);$i++){
+        
     }
 }
 ?>
