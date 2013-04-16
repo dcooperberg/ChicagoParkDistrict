@@ -46,19 +46,58 @@ function googleTable($data){
         }
     }
 }
-function googlePie($data,$var){
+function googlePie($data,$var,$type){
     echo "var ".$var." = google.visualization.arrayToDataTable([";
-    echo "['Race', 'Percentage'],";
-    $vals = array(0,0,0);
-    for ($i=27; $i<count($data[0]);$i++){
-        for ($j=1; $j<count($data); $j++){
-            $vals[$i-27] = $vals[$i-27] + floatval($data[$j][$i]);
+    if ($type == "race"){
+        echo "['Race', 'Percentage'],";
+        $vals = array(0,0,0);
+        for ($i=27; $i<count($data[0]);$i++){
+            for ($j=1; $j<count($data); $j++){
+                $vals[$i-27] = $vals[$i-27] + floatval($data[$j][$i]);
+            }
+            echo "['".strtoupper($data[0][$i])."', ".$vals[$i-27]."]";
+            if ($i < count($data[0])-1){
+                echo ",";
+            } else {
+                echo "]);\n";
+            }
         }
-        echo "['".strtoupper($data[0][$i])."', ".$vals[$i-27]."]";
-        if ($i < count($data[0])-1){
-            echo ",";
-        } else {
-            echo "]);\n";
+    } else if ($type == "segment"){
+        $labs = array();
+        $vals = array();
+        $index = count($data[0])-1;
+        array_push($labs,$data[1][$index]);
+        array_push($vals,0);
+        //find unique names
+        for ($j=2;$j<count($data);$j++){
+            $new = true;
+            for ($k=0;$k<count($labs);$k++){
+                if ($labs[$k] === $data[$j][$index]){
+                    $new = false;
+                }
+            }
+            if ($new == true){
+                array_push($labs,$data[$j][$index]);
+                array_push($vals,0);
+            }
+            $new = true;
+        }
+        //Count instances of each name
+        for ($l=1;$l<count($data);$l++){
+            for ($m=0;$m<count($labs);$m++){
+                if ($data[$l][$index] == $labs[$m]){
+                    $vals[$m] = $vals[$m] + 1;
+                }
+            }
+        }
+        echo "['".$data[0][$index]."', 'Count'],";
+        for ($k=0; $k<count($vals);$k++){
+            echo "['".$labs[$k]."', ".$vals[$k]."]";
+            if ($k < count($vals)-1){
+                echo ",";
+            } else {
+                echo "]);\n";
+            }
         }
     }
 }
@@ -74,7 +113,7 @@ function googleScatter($data){
         }
     }
 }
-
+/*
 function raphaelPie($data){
     $vals = array();
     $labs = array();
@@ -92,7 +131,8 @@ function raphaelPie($data){
             echo "labels.push('".$labs[$k]."');\n";
     }
 }
-
+*/
+/*
 function clusterPie($data,$type){
     $vals = array();
     $labs = array();
@@ -126,7 +166,9 @@ function clusterPie($data,$type){
     }
     for ($k=0; $k<count($vals);$k++){
             echo "values1.push(parseInt('".$vals[$k]."',10));\n";
-            echo "labels1.push('".$labs[$k]."');\n";
+            $pos = strpos($labs[$k],"|");
+            echo "labels1.push('".substr($labs[$k],0,$pos)."');\n";
+            echo "descs1.push('".substr($labs[$k],$pos+1)."');\n";
     }
 }
 
@@ -137,5 +179,5 @@ function raphaelScatter($data){
     for ($i=0;$i<count($data);$i++){
         
     }
-}
+}*/
 ?>

@@ -35,9 +35,7 @@
                     <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png">
                                    <link rel="shortcut icon" href="assets/img/CPDlogo.png">
   </head>
-  <script src="http://d3js.org/d3.v3.min.js"></script>
   <script type='text/javascript' src='https://www.google.com/jsapi'></script>
-  <script type='text/javascript' src="assets/js/raphael-min.js"></script>
   <script type='text/javascript' src="assets/js/jquery.js"></script>
   <script type='text/javascript' src='bootleg.js'></script>
 
@@ -48,34 +46,37 @@
     <?php
         include 'GetData.php';
         include 'visualizations.php';
-        $data = colRange(rowRange(getData("testdata1.csv"),0,5500),0,29);
+        $data = colRange(rowRange(getData("testdata1.csv"),0,300),0,29);
+        $programs = getData('testcluster1.csv');
+        $loyalty = getData('testcluster2.csv');
     ?>
     //google.setOnLoadCallback(createTable);
     
     $(document).ready(function(){
-        $("#main-container").load("home.php", function(responseTxt,statusTxt,xhr){
-                if(statusTxt=="success"){
-                  var values = [];
-                  var labels = [];
-                  <?php
-                  googlePie($data,"pieData");
-                  googleScatter($data);
-                  raphaelPie($data);
-                  ?>
-                  drawPie(pieData,'pie_div','google');
-                  drawScatter(scatterData,'scatter_div','google');
-                  drawPie(pieData,'chart_div','raphael',values,labels,"Participation by Group");
-                }
-                if(statusTxt=="error"){
-                  alert("Error: "+xhr.status+": "+xhr.statusText);
-                }
-            });
+        
     });
     function initialize(){
-        //$(".viz").hide();
+        <?php
+        googleTable(addCluster(addCluster($data,$programs,"Program Cluster"),$loyalty,"Loyalty Cluster"));
+        ?>
+        $("#main-container").load("home.php", function(responseTxt,statusTxt,xhr){
+          if(statusTxt=="success"){
+            var pieData=raceData(data);
+            var pieoptions = {
+              title: 'Race Percentages',
+              legend: {position:'none'},
+              height: '100%',
+              sliceVisibilityThreshold: 1/720
+            }
+            drawPie(pieData,'pie_div',pieoptions);
+            var scatData=scatterData(data,"Sports","Recency");
+            drawScatter(scatData,'scatter_div');
+          }
+          if(statusTxt=="error"){
+            alert("Error: "+xhr.status+": "+xhr.statusText);
+          }
+        });
         $(".reload").click(function(){
-            //$(".viz").hide();
-            //$("#main-container").show()
             $("#main-container").html("<p class='spinner' style='text-align:center;top:100px;position:relative'><img style='top:50px;height:50px' src='assets/img/spinner.gif'></p>");
             var hash = this.href.indexOf("#");
             var val = this.href.substring(hash+1);
@@ -84,32 +85,40 @@
             $("#"+val+"div").show();
             $("#main-container").load(val+".php", function(responseTxt,statusTxt,xhr){
                 if(statusTxt=="success"){
-                  //alert("External content loaded successfully!");
                   if (val == "contact"){
-                    <?php
-                    googleTable(colRange($data,0,4));
-                    ?>
                     drawTable(data,'contactdiv');
                   } else if (val == "home"){
-                    var values = [];
-                    var labels = [];
-                    <?php
-                    googlePie($data,"pieData");
-                    googleScatter($data);
-                    raphaelPie($data);
-                    ?>
-                    drawPie(pieData,'pie_div','google');
-                    drawScatter(scatterData,'scatter_div','google');
-                    drawPie(pieData,'chart_div','raphael',values,labels,"Participation by Group");
+                    var pieData = raceData(data);
+                    var pieoptions = {
+                      title: 'Race Percentages',
+                      legend: {position:'none'},
+                      height: '100%',
+                      sliceVisibilityThreshold: 1/720,
+                      tooltip: {trigger: 'none'},
+                      legend: {position: 'bottom'}
+                    }
+                    drawPie(pieData,'pie_div',pieoptions);
+                    var scatData = scatterData(data,"Sports","Recency");
+                    drawScatter(scatData,'scatter_div');
                   } else if (val == "segment"){
-                      var values1 = [];
-                      var labels1 = [];
-                      <?php
-                      $programs = getData('testcluster1.csv');
-                      clusterPie(addCluster($data,$programs,"Program Cluster"),"Program Cluster");
-                      ?>
-                      var clusData;
-                      drawPie(clusData,'pie_div','raphael',values1,labels1,"Cluster Distribution");
+                      var clusData = clusterData(data,"Program Cluster");
+                      var pieoptions = {
+                        title: 'Programs',
+                        legend: {position:'none'},
+                        height: '250',
+                        sliceVisibilityThreshold: 1/720,
+                        tooltip: {trigger: 'none'}
+                      }
+                      drawPie(clusData,'pie_div',pieoptions);
+                      var clusData2 = clusterData(data,"Loyalty Cluster");
+                      var pieoptions = {
+                        title: 'Loyalty',
+                        legend: {position:'none'},
+                        height: '250',
+                        sliceVisibilityThreshold: 1/720,
+                        tooltip: {trigger: 'none'}
+                      }
+                      drawPie(clusData2,'pie_div2',pieoptions);
                   }
                 }
                 if(statusTxt=="error"){
