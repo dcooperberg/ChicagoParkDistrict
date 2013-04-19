@@ -1,5 +1,7 @@
 <?php
-
+include 'GetData.php';
+$programs = getData('testcluster1.csv');
+$loyalty = getData('testcluster2.csv');
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -18,31 +20,43 @@
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
               <li class="nav-header">Age</li>
-                <select class="target" id="ages">
+                <select class="target" name="ages">
                   <option value="children">Children</option>
                   <option value="adult">Adults</option>
                 </select>
               <li class="nav-header">Recency</li>
-                <select class="target" id="recency">
+                <select class="target" name="recency">
                   <option value="any">Any</option>
                   <option value="year"><?php echo (date("Y")-1) ?> to Present</option>
                   <option value="season">Last Season</option>
                 </select>
               <li class="nav-header">Program Cluster</li>
                 <select class="target" id="programs">
-                  <option value="any">Any</option>
-                  <option value="after">After Schoolers</option>
-                  <option value="weekend">Weekenders</option>
-                  <option value="early">Early Childhood</option>
-                  <option value="sports">Sports Lovers</option>
-                  <option value="summer">Summer Campers</option>
+                    <option value="any">Any</option>
+                    <?php
+                    for ($i=1;$i<count($programs);$i++){
+                        echo "<option value='";
+                        echo substr($programs[$i][0],0,3);
+                        echo "'>";
+                        $loc = strpos($programs[$i][0],"|");
+                        echo substr($programs[$i][0],0,$loc);
+                        echo "</option>\n";
+                    }
+                    ?>
                 </select>
               <li class="nav-header">Loyalty Cluster</li>
                 <select class="target" id="loyalty">
-                  <option value="volvo">Any</option>
-                  <option value="parkies">Parkies</option>
-                  <option value="deals">Deal Seekers</option>
-                  <option value="occ">Occasionals</option>
+                  <option value="any">Any</option>
+                  <?php
+                    for ($i=1;$i<count($loyalty);$i++){
+                        echo "<option value='";
+                        echo substr($loyalty[$i][0],0,3).$i;
+                        echo "'>";
+                        $loc = strpos($loyalty[$i][0],"|");
+                        echo substr($loyalty[$i][0],0,$loc);
+                        echo "</option>\n";
+                    }
+                    ?>
                 </select>
               <li class="nav-header">Category</li>
                 <select class="target">
@@ -56,7 +70,7 @@
         </div><!--/span-->
         <div class="span9">
           <div class="row-fluid" id="Pro">
-            <div class="span5" id="pie_div">
+            <div class="span5" id="pie_div1">
               <p class='spinner' style='text-align:center;top:100px;position:relative'><img style='top:50px;height:50px' src='assets/img/spinner.gif'></p>
             </div><!--/span-->
             <div class="span7 description">
@@ -81,27 +95,8 @@
           </div><!--/row-->
         </div><!--/span-->
       </div><!--/row-->
+      <div id="contactdiv"></div>
     </div><!--/.fluid-container-->
 <script type="text/javascript">
-  $(".hero-unit").click(function(){
-      $(".hero-unit").animate({opacity:0,height:0}, 750, function() {
-          $(this).remove();
-      });
-      return false;
-  });
-  $(".target").change(function(){
-      var choice = $(this).find("option:selected").text();
 
-      //transform data
-
-      var pieoptions = {
-        title: 'Programs',
-        legend: {position:'none'},
-        height: '250',
-        sliceVisibilityThreshold: 1/720,
-        tooltip: {trigger: 'none'}
-      }
-      drawPie(clusData,'pie_div',pieoptions);
-  });
-  
 </script>

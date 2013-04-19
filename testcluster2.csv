@@ -1,7 +1,7 @@
 0,Recency,Frequency,Spend,Number of Parks,Groups
-One Time Participants|Very high recency and ver low frequency. Average spend. Mostly one park,7.788298616,-1.124829348,0.090496624,-0.698086663,-0.376617895
-Occassional Average Spenders|High recency and low frequency. Different types of programs but only one park.,4,-1,0.153083994,-1,0
+"One Time Participants|Very high recency, and very low frequency. Average spend. Mostly one park",7.788298616,-1.124829348,0.090496624,-0.698086663,-0.376617895
+"Occasional Average Spenders|High recency, and low frequency. Different types of programs but only one park.",4,-1,0.153083994,-1,0
 "Parkies|Have participated recently, and participate very frequently. Spend an average amount and go to multiple parks",-6.248884184,1.27145341,-0.199125914,0.329181901,0.902765082
-"Occassional Big Spenders|Have not participated recent, and frequency is relatively low. Tend to spend a lot on a mix of programs at several parks.",3,-1.5,2,-0.123402203,0.370206608
-Selective Big Spenders|High recency and a high frequency. Mostly one type of program at a mix of parks,-6,1,1,1,0.707865169
+"Occasional Big Spenders|Have not participated recent, and frequency is relatively low. Tend to spend a lot on a mix of programs at several parks.",3,-1.5,2,-0.123402203,0.370206608
+"Selective Big Spenders|High recency, and a high frequency. Mostly one type of program at a mix of parks",-6,1,1,1,0.707865169
 "Deal Seekers|Have participated recently, but spend very little on different types of program at only one park.",-4,-4,-4,-1,-3

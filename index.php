@@ -37,7 +37,8 @@
   </head>
   <script type='text/javascript' src='https://www.google.com/jsapi'></script>
   <script type='text/javascript' src="assets/js/jquery.js"></script>
-  <script type='text/javascript' src='bootleg.js'></script>
+  <script type='text/javascript' src='assets/js/bootleg.js'></script>
+  <script type='text/javascript' src='assets/js/controller.js'></script>
 
   <script type="text/javascript">
     google.load('visualization', '1', {packages:['table']});
@@ -59,7 +60,7 @@
         <?php
         googleTable(addCluster(addCluster($data,$programs,"Program Cluster"),$loyalty,"Loyalty Cluster"));
         ?>
-        $("#main-container").load("home.php", function(responseTxt,statusTxt,xhr){
+        /*$("#main-container").load("home.php", function(responseTxt,statusTxt,xhr){
           if(statusTxt=="success"){
             var pieData=raceData(data);
             var pieoptions = {
@@ -71,11 +72,15 @@
             drawPie(pieData,'pie_div',pieoptions);
             var scatData=scatterData(data,"Sports","Recency");
             drawScatter(scatData,'scatter_div');
+            var bubData=bubbleData(data,'Sports','Number of Parks');
+            drawBubble(bubData,'chart_div','Sports','Number of Parks');
+            
           }
           if(statusTxt=="error"){
             alert("Error: "+xhr.status+": "+xhr.statusText);
           }
-        });
+        });*/
+            navScripts("home",data);
         $(".reload").click(function(){
             $("#main-container").html("<p class='spinner' style='text-align:center;top:100px;position:relative'><img style='top:50px;height:50px' src='assets/img/spinner.gif'></p>");
             var hash = this.href.indexOf("#");
@@ -83,50 +88,8 @@
             $("li").removeClass("active");
             $("li#"+val).addClass("active");
             $("#"+val+"div").show();
-            $("#main-container").load(val+".php", function(responseTxt,statusTxt,xhr){
-                if(statusTxt=="success"){
-                  if (val == "contact"){
-                    drawTable(data,'contactdiv');
-                  } else if (val == "home"){
-                    var pieData = raceData(data);
-                    var pieoptions = {
-                      title: 'Race Percentages',
-                      legend: {position:'none'},
-                      height: '100%',
-                      sliceVisibilityThreshold: 1/720,
-                      tooltip: {trigger: 'none'},
-                      legend: {position: 'bottom'}
-                    }
-                    drawPie(pieData,'pie_div',pieoptions);
-                    var scatData = scatterData(data,"Sports","Recency");
-                    drawScatter(scatData,'scatter_div');
-                  } else if (val == "segment"){
-                      var clusData = clusterData(data,"Program Cluster");
-                      var pieoptions = {
-                        title: 'Programs',
-                        legend: {position:'none'},
-                        height: '250',
-                        sliceVisibilityThreshold: 1/720,
-                        tooltip: {trigger: 'none'}
-                      }
-                      drawPie(clusData,'pie_div',pieoptions);
-                      var clusData2 = clusterData(data,"Loyalty Cluster");
-                      var pieoptions = {
-                        title: 'Loyalty',
-                        legend: {position:'none'},
-                        height: '250',
-                        sliceVisibilityThreshold: 1/720,
-                        tooltip: {trigger: 'none'}
-                      }
-                      drawPie(clusData2,'pie_div2',pieoptions);
-                  }
-                }
-                if(statusTxt=="error"){
-                    $(".spinner").hide();
-                  alert("Error: "+xhr.status+": "+xhr.statusText);
-                }
-            });
-                });
+            navScripts(val,data);
+        });
     }
 </script>
   <body onload="initialize()">
@@ -145,7 +108,6 @@
               <li id="segment"><a class="reload" href="#segment">Segmentation</a></li>
               <li id="rules"><a class="reload" href="#rules">Association Rules</a></li>
               <li id="email"><a class="reload" href="#email">Email Lists</a></li>
-              <li id="forecasts"><a class="reload" href="#forecasts">Forecasts</a></li>
               <li id="about"><a class="reload" href="#about">About</a></li>
               <li id="contact"><a class="reload" href="#contact">Contact</a></li>
             </ul>
@@ -170,18 +132,6 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="assets/js/jquery.js"></script>
-    <script src="assets/js/bootstrap-transition.js"></script>
-    <script src="assets/js/bootstrap-alert.js"></script>
-    <script src="assets/js/bootstrap-modal.js"></script>
-    <script src="assets/js/bootstrap-dropdown.js"></script>
-    <script src="assets/js/bootstrap-scrollspy.js"></script>
-    <script src="assets/js/bootstrap-tab.js"></script>
-    <script src="assets/js/bootstrap-tooltip.js"></script>
-    <script src="assets/js/bootstrap-popover.js"></script>
-    <script src="assets/js/bootstrap-button.js"></script>
-    <script src="assets/js/bootstrap-collapse.js"></script>
-    <script src="assets/js/bootstrap-carousel.js"></script>
-    <script src="assets/js/bootstrap-typeahead.js"></script>
 
   </body>
 </html>
