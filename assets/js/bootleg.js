@@ -55,20 +55,10 @@ function drawPie(data,div,options/*,type,values,labels,descs,title*/){
         $("#"+div).find(".spinner").hide();
     }*/
 }
-function drawScatter(data,div/*,type,data2,axisx,axisy*/){
+function drawScatter(data,div,options/*,type,data2,axisx,axisy*/){
     //if (type === 'google'){
-        var scatteroptions = {
-          title: 'Recency vs. Sports',
-          hAxis: {title: 'Sports Programs', minValue: 0},
-          vAxis: {title: 'Recency', minValue: 0},
-          legend: 'none',
-          height: '100%',
-          //theme: 'maximized',
-          pointSize: 4,
-          titlePosition: 'out'
-        }
         var scatterplot = new google.visualization.ScatterChart(document.getElementById(div));
-        scatterplot.draw(data, scatteroptions);
+        scatterplot.draw(data, options);
     /*} else if (type === 'raphael'){
         //Raphael("scatter_div",250,250).scatterPlot(250,250, data2, axisx, axisy);
         //$("#scatter_div").find(".spinner").hide();
@@ -298,4 +288,103 @@ lDescs.push("Very high recency, and very low frequency. Average spend. Mostly on
     }
     var results = google.visualization.arrayToDataTable(output);
     return results;
+}
+function loadmap(parkdata){
+    var map;
+    var mapOptions = {
+        zoom: 11,
+        center: new google.maps.LatLng(41.850233,-87.638532),
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    $('#map_canvas').height("500px");
+    //$('#map_canvas').height($(window).height());
+    /*$(window).on('resize', function() {
+        $('#map_canvas').height($(window).height()-40)
+    });*/
+    $(function() {
+        $("#map_canvas").mousemove(function(e){
+            mouseXpos = e.pageX 
+            mouseYpos = e.pageY
+        });
+    });
+    
+    google.maps.Polygon.prototype.getBounds = function() {
+        var bounds = new google.maps.LatLngBounds();
+        var paths = this.getPaths();
+        var path;        
+        for (var i = 0; i < paths.getLength(); i++) {
+            path = paths.getAt(i);
+            for (var ii = 0; ii < path.getLength(); ii++) {
+                bounds.extend(path.getAt(ii));
+            }
+        }
+        return bounds;
+    }
+
+    String.prototype.format = function() {
+        var formatted = this;
+        for (var i = 0; i < arguments.length; i++) {
+            var regexp = new RegExp('\\{'+i+'\\}', 'gi');
+            formatted = formatted.replace(regexp, arguments[i]);
+        }
+        return formatted;
+    };
+    
+    map = new google.maps.Map(document.getElementById('map_canvas'),mapOptions);
+    jQuery.getJSON('parks.json',function(data){
+        $.each(data,function(i){
+            var MapCoords = [];
+            $.each(data[i].Points, function(j){
+                MapCoords.push(new google.maps.LatLng(data[i].Points[j].Lat, data[i].Points[j].Lng))
+            });
+            var polygon = new google.maps.Polygon({
+                paths: MapCoords,
+                strokeColor: "#333333",
+                strokeOpacity: 0.7,
+                strokeWeight: 1,
+                fillColor: "#079626",
+                fillOpacity: 0.5
+            });
+            google.maps.event.addListener(polygon,"mouseover",function(){
+                this.setOptions({filleOpacity: 5});
+                var html = '';
+                if (data[i].Title != ''){
+                    html = html + '<h4 style="margin-bottom:-10px;padding-bottom:0px;" >'
+                    + data[i].Title + '</h4><br/>';
+                }
+                if (data[i].Description != '' && data[i].Description != null){
+                    html += '<p>' + data[i].Description + '</p>';
+                }
+                $('#g_map_CT_Main_0_ccGoogleMap_tooltip').html(html);
+                $('#g_map_CT_Main_0_ccGoogleMap_tooltip').css('left',mouseXpos + 20);
+                $('#g_map_CT_Main_0_ccGoogleMap_tooltip').css('top',mouseYpos + 20);
+                $('#g_map_CT_Main_0_ccGoogleMap_tooltip').show();
+            })
+            google.maps.event.addListener(polygon,"mouseout",function(){
+                if (data[i].FitTo){
+                    this.setOptions({fillOpacity: 0.5});
+                } else {
+                    this.setOptions({fillOpacity: 0.5});
+                }
+                $('#g_map_CT_Main_0_ccGoogleMap_tooltip').hide();
+            })
+            google.maps.event.addListener(polygon,"click",function(){
+                //window.location = data[i].ParkURL;
+            })
+            polygon.setMap(map);
+            if (data[i].FitTo){
+                polygon.setOptions({
+                    fillOpacity: 0.5,fillColor: "#079626"
+                })
+                map.fitBounds(polygon.getBounds());
+            }
+        })
+    })
+    google.maps.event.addListener(map, 'click', function(){
+        google.maps.event.addListenerOnce(map,"zoom_changed",function() {
+            if (map.draggable == false){
+                map.draggable = true;
+            }
+        });
+    });
 }

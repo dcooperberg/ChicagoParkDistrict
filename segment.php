@@ -20,18 +20,18 @@ $loyalty = getData('testcluster2.csv');
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
               <li class="nav-header">Age</li>
-                <select class="target" name="ages">
+                <select class="span12 target" name="ages">
                   <option value="children">Children</option>
                   <option value="adult">Adults</option>
                 </select>
               <li class="nav-header">Recency</li>
-                <select class="target" name="recency">
+                <select class=" span12 target" name="recency">
                   <option value="any">Any</option>
                   <option value="year"><?php echo (date("Y")-1) ?> to Present</option>
                   <option value="season">Last Season</option>
                 </select>
               <li class="nav-header">Program Cluster</li>
-                <select class="target" id="programs">
+                <select class="span12 target" id="programs">
                     <option value="any">Any</option>
                     <?php
                     for ($i=1;$i<count($programs);$i++){
@@ -45,7 +45,7 @@ $loyalty = getData('testcluster2.csv');
                     ?>
                 </select>
               <li class="nav-header">Loyalty Cluster</li>
-                <select class="target" id="loyalty">
+                <select class="span12 target" id="loyalty">
                   <option value="any">Any</option>
                   <?php
                     for ($i=1;$i<count($loyalty);$i++){
@@ -59,12 +59,15 @@ $loyalty = getData('testcluster2.csv');
                     ?>
                 </select>
               <li class="nav-header">Category</li>
-                <select class="target">
+                <select class="span12 target">
                   <option value="volvo">Option1</option>
                   <option value="saab">Option2</option>
                   <option value="mercedes">Option3</option>
                   <option value="audi">Option4</option>
                 </select>
+              <li class="nav-header"><br/></li>
+              <li class="nav"><button type="button" class="span12 btn btn-primary btn-small"><i class="icon-envelope icon-white"></i>  Email List &raquo;</button></li>
+              <li class="nav-header"><br/></li>
             </ul>
           </div><!--/.well -->
         </div><!--/span-->

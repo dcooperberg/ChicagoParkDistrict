@@ -21,7 +21,7 @@
         }
     </style>
     
-    <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
+    <!--<link href="assets/css/bootstrap-responsive.css" rel="stylesheet">-->
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -39,10 +39,15 @@
   <script type='text/javascript' src="assets/js/jquery.js"></script>
   <script type='text/javascript' src='assets/js/bootleg.js'></script>
   <script type='text/javascript' src='assets/js/controller.js'></script>
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
 
   <script type="text/javascript">
     google.load('visualization', '1', {packages:['table']});
     google.load("visualization", "1", {packages:["corechart"]});
+    var programs = new Array();
+    var prodescs = new Array();
+    var loyalty = new Array();
+    var loydescs = new Array();
     
     <?php
         include 'GetData.php';
@@ -50,37 +55,31 @@
         $data = colRange(rowRange(getData("testdata1.csv"),0,300),0,29);
         $programs = getData('testcluster1.csv');
         $loyalty = getData('testcluster2.csv');
+        $market = getData('mbtest.csv');
+        $parks = getData('CPD_Park Performance Data_v1.csv');
+        for ($i = 1; $i<count($programs);$i++){
+            $loc = strpos($programs[$i][0],"|");
+            echo "programs.push('".substr($programs[$i][0],0,$loc)."');\n";
+            echo "prodescs.push('".substr($programs[$i][0],$loc+1)."');\n";
+        }
+        for ($j = 1; $j<count($loyalty);$j++){
+            $loc2 = strpos($loyalty[$j][0],"|");
+            echo "loyalty.push('".substr($loyalty[$j][0],0,$loc2)."');\n";
+            echo "loydescs.push('".substr($loyalty[$j][0],$loc2+1)."');\n";
+        }
+        //$paths = file_get_contents("parks.txt");
     ?>
-    //google.setOnLoadCallback(createTable);
     
     $(document).ready(function(){
         
     });
     function initialize(){
         <?php
-        googleTable(addCluster(addCluster($data,$programs,"Program Cluster"),$loyalty,"Loyalty Cluster"));
+        googleTable(addCluster(addCluster($data,$programs,"Program Cluster"),$loyalty,"Loyalty Cluster"),"data");
+        googleTable($market,"market");
+        googleTable($parks,"parkdata");
         ?>
-        /*$("#main-container").load("home.php", function(responseTxt,statusTxt,xhr){
-          if(statusTxt=="success"){
-            var pieData=raceData(data);
-            var pieoptions = {
-              title: 'Race Percentages',
-              legend: {position:'none'},
-              height: '100%',
-              sliceVisibilityThreshold: 1/720
-            }
-            drawPie(pieData,'pie_div',pieoptions);
-            var scatData=scatterData(data,"Sports","Recency");
-            drawScatter(scatData,'scatter_div');
-            var bubData=bubbleData(data,'Sports','Number of Parks');
-            drawBubble(bubData,'chart_div','Sports','Number of Parks');
-            
-          }
-          if(statusTxt=="error"){
-            alert("Error: "+xhr.status+": "+xhr.statusText);
-          }
-        });*/
-            navScripts("home",data);
+            navScripts("home",data,market,parkdata);
         $(".reload").click(function(){
             $("#main-container").html("<p class='spinner' style='text-align:center;top:100px;position:relative'><img style='top:50px;height:50px' src='assets/img/spinner.gif'></p>");
             var hash = this.href.indexOf("#");
@@ -88,7 +87,7 @@
             $("li").removeClass("active");
             $("li#"+val).addClass("active");
             $("#"+val+"div").show();
-            navScripts(val,data);
+            navScripts(val,data,market);
         });
     }
 </script>
@@ -101,13 +100,13 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="brand reload" href="#home"><img style="height:40px;position:absolute;top:0px" src="assets/img/CPDlogo.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chicago Park District</a>
+          <a class="brand reload" href="#home"><img class="img-circle" style="height:40px;position:absolute;top:0px" src="assets/img/CPDlogo.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chicago Park District</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
               <li id="home" class="active"><a class="reload" href="#home">Home</a></li>
+              <li id="parks"><a class="reload" href="#parks">Park Performance</a></li>
               <li id="segment"><a class="reload" href="#segment">Segmentation</a></li>
               <li id="rules"><a class="reload" href="#rules">Association Rules</a></li>
-              <li id="email"><a class="reload" href="#email">Email Lists</a></li>
               <li id="about"><a class="reload" href="#about">About</a></li>
               <li id="contact"><a class="reload" href="#contact">Contact</a></li>
             </ul>

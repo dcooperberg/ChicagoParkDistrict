@@ -8,7 +8,7 @@
 <!-- Main hero unit for a primary marketing message or call to action -->
 <div class="hero-unit">
     <h2>Welcome to CPD's Analytics Portal!</h2>
-    <p>This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
+    <p>This tool can be used to sift through CPD's data. Analtics can be used to develop marketing strategies, identify customer trends, and improve the overall CPD experience. Enjoy!</p>
 </div>
 <div class="row-fluid">
     <div id="chart_div" class="span4" style="height:250px">

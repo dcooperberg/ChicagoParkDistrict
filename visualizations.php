@@ -4,8 +4,8 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-function googleTable($data){
-    echo "var data = google.visualization.arrayToDataTable([";
+function googleTable($data,$var){
+    echo "var ".$var." = google.visualization.arrayToDataTable([";
     $type = array();
     for ($k=0; $k<count($data[0]); $k++){
         if (is_numeric($data[2][$k])){
