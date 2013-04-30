@@ -86,7 +86,6 @@
             var val = this.href.substring(hash+1);
             $("li").removeClass("active");
             $("li#"+val).addClass("active");
-            $("#"+val+"div").show();
             navScripts(val,data,market);
         });
     }
@@ -106,8 +105,8 @@
               <li id="home" class="active"><a class="reload" href="#home">Home</a></li>
               <li id="parks"><a class="reload" href="#parks">Park Performance</a></li>
               <li id="segment"><a class="reload" href="#segment">Segmentation</a></li>
-              <li id="rules"><a class="reload" href="#rules">Association Rules</a></li>
-              <li id="about"><a class="reload" href="#about">About</a></li>
+              <li id="rules"><a class="reload" href="#customers2">Association Rules</a></li>
+              <li id="about"><a class="reload" href="#parks3">About</a></li>
               <li id="contact"><a class="reload" href="#contact">Contact</a></li>
             </ul>
           </div><!--/.nav-collapse -->

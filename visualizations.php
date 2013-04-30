@@ -29,7 +29,11 @@ function googleTable($data,$var){
             if ($type[$j] == "string"){
                 echo "'";
             }
-            echo $data[$i][$j];
+            if ($type[$j] == "numeric" && $data[$i][$j] == ''){
+                echo "0";
+            } else {
+                echo $data[$i][$j];
+            }
             if ($type[$j] == "string"){
                 echo "'";
             }

@@ -7,8 +7,8 @@ function navScripts(val,data,market,parkdata){
         if(statusTxt=="success"){
           if (val == "contact"){
             drawTable(data,'contactdiv');
-          } else if (val == "parks") {
-              loadmap(parkdata);
+          } else if (val == "parks2") {
+              $("#leftSide").css("border-right","1px solid #000000");
           } else if (val == "home"){
             var pieData = raceData(data);
             var pieoptions = {

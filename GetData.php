@@ -1,5 +1,114 @@
 <?php
-
+function googleTable($data,$var){
+    echo "var ".$var." = google.visualization.arrayToDataTable([";
+    $type = array();
+    for ($k=0; $k<count($data[0]); $k++){
+        if (is_numeric($data[1][$k])){
+            array_push($type,"numeric");
+        } else {
+            array_push($type,"string");
+        }
+    }
+    echo "[";
+    for ($jj=0; $jj<count($data[0]); $jj++){
+        echo "'".$data[0][$jj]."'";
+        if ($jj<count($data[0])-1){
+            echo ",";
+        } else {
+            echo "],";
+        }
+    }
+    for ($i=1; $i< count($data); $i++){
+        echo "[";
+        for ($j=0; $j<count($data[0]); $j++){
+            if ($type[$j] == "string"){
+                echo "'";
+            }
+            if ($type[$j] == "numeric" && $data[$i][$j] == ''){
+                echo "0";
+            } else {
+                echo $data[$i][$j];
+            }
+            if ($type[$j] == "string"){
+                echo "'";
+            }
+            if ($j<count($data[0])-1){
+                echo ",";
+            } else {
+                echo "]";
+            }
+        }
+        if ($i<count($data)-1){
+            echo ",\n";
+        } else {
+            echo "]);\n";
+        }
+    }
+}
+function calcFields($data){
+    for ($i=0;$i<count($data[0]);$i++){
+        /*if ($data[0][$i] == "age"){
+            for ($j=1;$j<count($data);$j++){
+                if (date('Y') - $data[$j][$i] < 1901){
+                    $data[$j][$i] = "";
+                }
+            }
+        } else */if ($data[0][$i] == 'overallrecentseason'){
+            for ($k=1;$k<count($data);$k++){
+                $pos = strpos($data[$k][$i]," ");
+                $year = substr($data[$k][$i],0,$pos);
+                $seas = substr($data[$k][$i],$pos+1);
+                if ($seas == "Fall"){
+                    $seas = 4;
+                } else if ($seas == "Summer"){
+                    $seas = 3;
+                } else if ($seas == "Spring"){
+                    $seas = 2;
+                } else {
+                    $seas = 1;
+                }
+                if (date('n') > 8){
+                    $ss = 4;
+                } else if (date('n') > 5){
+                    $ss = 3;
+                } else if (date('n') > 2){
+                    $ss = 2;
+                } else {
+                    $ss = 1;
+                }
+                $rec = 4*(date('Y')-$year)-($seas-$ss);
+                $data[$k][$i] = $rec;
+            }
+        }
+    }
+    return $data;
+}
+function addParkData($parkData,$latlong){
+    $headings = array();
+    $output = array();
+    for ($i=0;$i<count($parkData[0]);$i++){
+        array_push($headings,$parkData[0][$i]);
+    }
+    array_push($headings,"Park Name");
+    array_push($headings, "Latitude");
+    array_push($headings, "Longitude");
+    array_push($output,$headings);
+    for ($j=1;$j<count($parkData);$j++){
+        $temp = array();
+        for ($k=0;$k<count($parkData[0]);$k++){
+            array_push($temp,$parkData[$j][$k]);
+        }
+        for ($l=1;$l<count($latlong);$l++){
+            if ($parkData[$j][0] == $latlong[$l][0]){
+                array_push($temp,$latlong[$l][1]);
+                array_push($temp,$latlong[$l][2]);
+                array_push($temp,$latlong[$l][3]);
+            }
+        }
+        array_push($output,$temp);   
+    }
+    return $output;
+}
 function getData($url){
     ini_set('memory_limit', '-1');
     $file = fopen($url,"r");
