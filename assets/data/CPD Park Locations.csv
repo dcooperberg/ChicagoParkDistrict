@@ -1,0 +1,611 @@
+ParkID,Park Name,Latitude,Longitude
+2,Peterson Park,41.985784,-87.72849
+3,McFetridge Sports Center,41.951062,-87.698195
+4,Revere Park,41.953982,-87.691213
+5,Eugene Field Park,41.972963,-87.722017
+6,Horner Park,41.961262,-87.697706
+7,River Park,41.974012,-87.701278
+8,Kilbourn Park,41.944433,-87.739631
+9,Avondale Park,41.941074,-87.714467
+10,Mayfair Park,41.962613,-87.741965
+11,Sauganash Park,41.987408,-87.738289
+12,Independence Park,41.95259,-87.725049
+13,West Lawn Park,41.774914,-87.728264
+14,Portage Park,41.955086,-87.762127
+15,Gompers Park,41.975474,-87.734865
+16,Daley Bicentennial Plaza,41.884323,-87.619526
+17,Brands Park,41.940439,-87.699812
+18,Hollywood Park,41.988478,-87.712259
+19,Jensen Park,41.964867,-87.720601
+20,Athletic Field Park,41.946532,-87.716726
+21,Administration Building,41.88415,-87.632409
+22,Department of Revenue,41.88415,-87.632409
+23,Avondale Park Gymnastics Center,41.941074,-87.714467
+24,Peterson Park Gymnastics Center,41.985784,-87.72849
+26,Abbott Park,41.721752,-87.622278
+27,Ada Park,41.687057,-87.65559
+28,Adams Playground Park,41.916659,-87.655312
+29,Adams Park,41.757504,-87.599269
+30,Jane Addams Memorial Park,41.891956,-87.612605
+31,Addams Park,41.863379,-87.659264
+32,Aiello Playlot Park,41.918842,-87.776758
+33,Algonquin Playlot Park,41.934693,-87.695238
+34,Almond Park,41.684269,-87.67814
+35,Altgeld Park,41.874742,-87.693714
+36,Amundsen Park,41.912848,-87.780689
+37,Anderson Playground Park,41.826938,-87.620442
+38,Andersonville Playlot Park,41.977211,-87.669636
+39,Arcade Park,41.691732,-87.608394
+40,Archer Park,41.803964,-87.73569
+41,Armour Square Park,41.8344,-87.635204
+42,Armstrong Park,41.813868,-87.611519
+43,Arrigo Park,41.871593,-87.661686
+44,Ashe Beach Park,41.762369,-87.558778
+45,Ashmore Playlot Park,41.968916,-87.748151
+46,Aspen Playlot Park,41.817601,-87.624643
+47,Aster Playlot Park,41.966316,-87.656148
+48,Auburn Park,41.75383,-87.634669
+50,Augusta Park,41.898837,-87.736932
+51,Austin Foster Playlot Park,41.975679,-87.778872
+52,Austin Park,41.887969,-87.773374
+53,Austin Town Hall,41.887744,-87.765519
+54,Avalon Park,41.744081,-87.594783
+55,Back of the Yards Park,41.804382,-87.65757
+56,Baraga Playlot Park,41.847439,-87.680612
+57,Barberry Playlot Park,41.870133,-87.696718
+58,Barnard Playlot Park,41.704285,-87.6708
+59,Barrett Park,41.852182,-87.676544
+60,Bartelme Mary Park,41.880143,-87.650798
+61,Battle of Fort Dearborn,41.857632,-87.619483
+62,Bauler Playlot Park,41.916462,-87.641199
+63,Beehive Park,41.783081,-87.591403
+64,Beilfuss Playlot Park,41.912275,-87.723944
+65,Bell Park,41.935002,-87.795604
+66,Berger Park Cultural Center,41.994785,-87.655548
+67,Bessemer Park,41.733105,-87.555482
+68,Beverly Park,41.708213,-87.683194
+69,Bickerdike Square Park,41.892471,-87.664509
+70,Birch Playlot Park,41.813028,-87.615655
+71,Bixler Playlot Park,41.792856,-87.593247
+72,Blackhawk Park,41.922724,-87.751177
+73,Blackwelder Park,41.684611,-87.670588
+74,Block Park,41.705242,-87.631566
+75,Bogan Park,41.749474,-87.720169
+76,Bohn Park,41.691948,-87.671251
+77,Roscoe Lee Boler Park,41.869921,-87.71563
+78,Bosley Playground Park,41.839355,-87.653668
+79,Arnita Young Boswell Park,41.774193,-87.598499
+80,Bradley Park,41.718351,-87.564631
+81,Brainerd Park,41.726791,-87.65409
+82,Brighton Park,41.829756,-87.698477
+83,Broadway Armory Park,41.989532,-87.660252
+84,Bromann Playlot Park,41.980159,-87.659982
+85,Broncho Billy Playlot Park,41.962427,-87.660915
+86,Gwendolyn Brooks Park,41.812572,-87.599302
+87,Brooks Park,42.010196,-87.806669
+88,Brown Memorial Park,41.738404,-87.609288
+89,Brynford Playlot Park,41.983643,-87.728473
+90,Buckthorn Playlot Park,41.815783,-87.618303
+91,Buena Circle Playlot Park,41.958195,-87.656371
+92,Buffalo Playlot Park,41.963136,-87.698502
+93,Burnham Park,41.865043,-87.615539
+94,Burnside Park,41.72402,-87.597289
+95,Buttercup Playlot Park,41.971747,-87.654877
+96,Butternut Playlot Park,41.799023,-87.596628
+97,California Park,41.951062,-87.698195
+98,Calumet Park,41.717787,-87.531596
+99,Canal Origins,41.844856,-87.665866
+100,Carmen Playlot Park,41.974602,-87.660717
+101,Carpenter Playlot Park,41.782321,-87.65092
+102,Carver Park,41.655944,-87.598811
+103,Catalpa Playlot Park,41.814594,-87.727496
+104,Cedar Playlot Park,41.978516,-87.657775
+105,Centennial Park,41.991634,-87.797819
+106,Central Playlot Park,41.894131,-87.716252
+107,McKinley Park,41.823058,-87.680469
+108,Challenger Playlot Park,41.95445,-87.657048
+110,Chamberlain Triangle Park,41.817392,-87.599387
+111,Chase Park,41.967111,-87.669393
+112,Chestnut Playlot Park,41.767646,-87.589466
+113,Chicago Womens Park and Gardens,41.85765,-87.622305
+114,Chippewa Park,42.00383,-87.704587
+115,Chopin Park,41.942654,-87.761723
+116,Christiana Playlot Park,41.860214,-87.709116
+117,Churchill Field Playlot Park,41.914618,-87.677537
+118,Claremont Playlot Park,41.873044,-87.684812
+119,Clarendon Park Community Center,41.963749,-87.649953
+120,Clark Park,41.876891,-87.741256
+121,Clark Playlot Park,41.943229,-87.693795
+122,Clemente Park,41.903045,-87.685493
+123,Clover Playlot Park,41.921928,-87.663142
+124,Clybourn Playlot Park,41.912981,-87.652395
+125,Cochran Playlot Park,41.982772,-87.661224
+126,Nat King Cole Park,41.740121,-87.615613
+127,Bessie Coleman Park,41.797006,-87.603846
+128,Coliseum Park,41.862147,-87.625688
+129,Columbia Beach Park,42.004656,-87.65858
+130,Columbus Park,41.873694,-87.764641
+131,Commercial Club Playground,41.896889,-87.673311
+132,Connors Park,41.898492,-87.626869
+133,Cooper Park,41.682075,-87.655445
+134,Cornell Park,41.796126,-87.585417
+135,Cornell Square Park,41.803072,-87.669946
+136,Cosme Park,41.726735,-87.668233
+137,Cotton Tail Park,41.861929,-87.628472
+138,Cottonwood Playlot Park,41.883055,-87.75166
+139,Cragin Park,41.928102,-87.758757
+140,Crawford Playlot Park,41.86022,-87.727432
+141,Crescent Park,41.696698,-87.676496
+142,Curie Park,41.803338,-87.721738
+143,Daley Park,41.835563,-87.684588
+144,Davis Park,41.902183,-87.761871
+145,Davis Square Park,41.813534,-87.666319
+146,Dawes Park,41.747198,-87.67307
+147,Dean Playground Park,41.907093,-87.67074
+148,Dearborn Park,41.870954,-87.629543
+149,De Bow Playlot Park,41.749542,-87.596252
+150,De George Playlot Park,41.911398,-87.74959
+151,De Julio Playlot Park,41.991851,-87.752429
+152,DElia Playlot Park,41.997122,-87.662966
+153,Dickinson Playlot Park,41.955273,-87.752221
+154,Lorraine Dixon Park,41.736594,-87.601214
+155,Dobson Playlot Park,41.757775,-87.599275
+156,Dogwood Playlot Park,41.871077,-87.694477
+157,Donovan Playground Park,41.828425,-87.647657
+158,Dooley Playground Park,41.753386,-87.707642
+159,Dougherty Playground Park,41.725573,-87.562029
+160,Douglas Park Cultural and Community Center,41.862366,-87.701899
+161,Drexel Playlot Park,41.767892,-87.673605
+162,Dubkin Playlot Park,42.017351,-87.670312
+163,Dunbar Park,41.83841,-87.619322
+164,Dunham Park,41.965397,-87.781983
+165,Durkin Park,41.739358,-87.730068
+166,Durso Playlot Park,41.898895,-87.639574
+167,Dusable Habor,41.884447,-87.613294
+168,Dvorak Park,41.855208,-87.653904
+169,Eckersall Playground Park,41.746278,-87.566113
+170,Eckhart Park,41.896185,-87.660586
+171,Edgebrook Park,41.999379,-87.761915
+172,Edison Park,42.003988,-87.818054
+173,Edmonds Playlot Park,41.784194,-87.642934
+174,Ellis Park,41.831195,-87.612919
+175,Elm Playlot Park,41.800593,-87.59666
+176,Elston Playlot Park,41.943836,-87.706507
+177,Emerald Playlot Park,41.792312,-87.643897
+178,Emmerson Park,41.994335,-87.675875
+179,Erhler Playlot Park,41.916134,-87.683242
+180,Essex Playlot Park,41.89471,-87.775149
+181,Euclid Park,41.716066,-87.636997
+182,Eugenie Triangle Park,41.912998,-87.633137
+183,Evergreen Playlot Park,41.94003,-87.645835
+184,Fargo Beach Park,42.017217,-87.663579
+185,Fellger Playlot Park,41.939587,-87.678483
+186,Fernwood Park,41.704437,-87.637899
+187,Fernwood Parkway Park,41.715464,-87.633814
+188,Filbert Playlot Park,41.95328,-87.674778
+189,Flower Playlot Park,41.914817,-87.691097
+190,Flying Squirrel Playlot Park,41.774853,-87.596073
+191,Forest Glen Playlot Park,41.977824,-87.754234
+192,Fosco Park,41.864829,-87.656624
+193,Foster Park,41.741346,-87.657872
+194,Franklin Park,41.860571,-87.733421
+195,Fuller Park,41.8125,-87.634211
+196,Gage Park,41.793845,-87.684355
+197,Galewood Park,41.912612,-87.768779
+198,Garfield Park,41.881556,-87.715845
+199,Garibaldi Playground Park,41.871656,-87.664772
+200,Gately Park,41.70746,-87.605365
+201,Gill Park,41.952707,-87.650113
+202,Ginkgo Playlot Park,41.861658,-87.711617
+203,Gladstone Park,41.979049,-87.773247
+204,Gladys Playlot Park,41.876208,-87.708554
+205,Goldberg Playlot Park,42.010528,-87.665842
+206,Golden Gate Park,41.659014,-87.610647
+207,Gooseberry Playlot Park,41.966213,-87.66244
+208,Goudy Square Playlot Park,41.905313,-87.627156
+209,Grand Crossing Park,41.755784,-87.60164
+210,Grand Playlot Park,41.901404,-87.714465
+211,Grandparents Playlot Park,41.978783,-87.839036
+213,Grape Playlot Park,41.933631,-87.699264
+214,Graver Park,41.707298,-87.660174
+215,Green Briar Park,41.990474,-87.696075
+216,Green Playlot Park,41.999533,-87.76607
+217,Greenbaum Playlot Park,41.911615,-87.733846
+218,Gross Park,41.968555,-87.696654
+219,Haas Park,41.925066,-87.694983
+220,Hale Park,41.779624,-87.777077
+221,Hamilton Park,41.76348,-87.63744
+222,Hamlin Park,41.936561,-87.680675
+223,Lorraine Hansberry Park,41.792227,-87.620762
+224,Harding Playground Park,41.805339,-87.618061
+225,Harding Playlot Park,41.902666,-87.72452
+226,Harris Park,41.782062,-87.604364
+227,Harris Memorial Park,41.771169,-87.640254
+228,Harrison Park,41.857017,-87.671051
+229,Harsh Park,41.814088,-87.595354
+230,Hartigan Beach Park,42.005562,-87.658849
+231,Hasan Playlot Park,41.770737,-87.568237
+232,Hayes Park,41.738683,-87.696215
+233,Hazelnut Playlot Park,41.892837,-87.773611
+234,Heritage Green,41.879302,-87.642843
+235,Hermitage Park,41.787885,-87.669265
+236,Hermosa Park,41.92179,-87.738916
+237,Hiawatha Park,41.94422,-87.827301
+238,Hickory Playlot Park,41.969999,-87.65754
+239,Hoard Playground Park,41.763906,-87.599408
+240,Hodes Park,41.762386,-87.585591
+241,Holly Playlot Park,41.821041,-87.603223
+242,Holstein Park,41.921984,-87.6855
+243,Homan Park,41.852992,-87.71015
+244,Honeysuckle Playlot Park,41.810608,-87.610203
+245,Horan Park,41.8759,-87.702472
+246,Hornbeam Playlot Park,41.861789,-87.72017
+247,Houston Playground Park,41.80398,-87.606427
+248,Howard Beach Park,42.018493,-87.664261
+249,Hoyne Playground Park,41.831766,-87.678978
+250,Hubbard Playlot Park,41.888659,-87.74911
+251,Huckleberry Playlot Park,41.782153,-87.594693
+252,Humbert Park,41.838986,-87.642647
+253,Humboldt Park,41.906792,-87.701324
+254,Hurley Playlot Park,41.712027,-87.669069
+255,Indian Boundary Park and Cultural Center,42.008618,-87.692252
+256,Indian Road Park,41.992757,-87.778315
+257,Jackson Park Fieldhouse,41.778573,-87.586401
+258,Jacob Playlot Park,41.966456,-87.697747
+259,Florian S. Jacolik Park,41.844378,-87.660598
+260,Jarvis Beach & Park,42.016092,-87.663227
+261,Nancy Jefferson Park,41.886429,-87.704055
+262,Jefferson Playlot Park,41.859354,-87.641906
+263,Mahalia Jackson Park,41.741693,-87.640579
+264,Jefferson Memorial Park,41.96793,-87.762594
+265,Mary Richardson Jones Park,41.866489,-87.628498
+266,Jonquil Playlot Park,41.92898,-87.654382
+267,Junction Grove Playlot Park,41.778093,-87.633864
+268,Juneway Beach Park,42.021809,-87.665425
+269,Juniper Playlot Park,41.947989,-87.666458
+270,Kedvale Park,41.906245,-87.730262
+271,Keeler Playlot Park,41.865293,-87.730032
+272,Kells Playground Park,41.895579,-87.706702
+273,Kelly Park,41.819296,-87.693632
+274,Kelly Playlot Park,41.951219,-87.656831
+275,Kelvyn Park,41.928651,-87.737662
+276,Kenmore Playlot Park,41.938815,-87.655201
+277,Kennedy Park,41.687567,-87.681032
+278,Kennicott Park,41.813817,-87.596596
+279,Kensington Playground Park,41.679927,-87.616348
+280,Ken-Well Park,41.934382,-87.733839
+281,Kenwood Community Park,41.80421,-87.594391
+282,Keystone Playlot Park,41.910853,-87.727573
+283,King Park,41.754136,-87.654003
+284,Kinzie Parkway Park,41.887787,-87.755611
+285,Kiwanis Park,41.973882,-87.712087
+286,Kolmar Playlot Park,41.955916,-87.741805
+287,Korczak Playlot Park,41.993286,-87.688535
+288,Kosciuszko Park,41.930663,-87.723253
+289,Krause Playlot Park,41.703543,-87.536461
+290,Kucinski Murphy Park,41.833231,-87.666533
+291,La Follette Park,41.904721,-87.755803
+292,Lake Meadows Park,41.838022,-87.613402
+293,Lake Shore Park,41.89707,-87.617242
+294,Lamb Paylot Park,41.695819,-87.65718
+295,Lane Beach Park,41.989525,-87.655336
+296,Langdon Playlot Park,42.001654,-87.674069
+297,Langley Playlot Park,41.690013,-87.605915
+298,Jackson Playlot Park,41.816099,-87.621386
+299,Lawler Park,41.775992,-87.751111
+300,Lazarus Playlot Park,42.004515,-87.662387
+301,LeClaire Courts Hearst Community,41.813004,-87.751483
+302,Lee Playlot Park,41.734972,-87.714391
+303,Legion Park,41.88415,-87.632409
+304,Leland Giants Playlot Park,41.756646,-87.640534
+305,Leone Beach Park,42.012882,-87.661979
+306,Lerner Playlot Park,42.008474,-87.704506
+307,not use - Levin Park,41.887757,-87.762024
+308,Lily Gardens Park,41.765285,-87.640832
+309,Limas Playground Park,41.84773,-87.711219
+310,Margaret Hie Ding Lin Park,41.858545,-87.627153
+311,Lincoln Park Cultural Center,41.919755,-87.636345
+312,Lindblom Park,41.783877,-87.674028
+313,Linden Playlot Park,41.901556,-87.726241
+314,Little Venice Park,41.802057,-87.680904
+315,Logan Blvd Skate Park,41.92864,-87.687779
+316,London Playlot Park,41.858434,-87.711524
+317,Lowe Playground Park,41.799718,-87.641639
+318,Loyola Park,42.010439,-87.66124
+319,Luella Playlot Park,41.712985,-87.568176
+320,Luna Playlot Park,41.793079,-87.646358
+321,Lunt Playlot Park,42.008731,-87.686868
+322,Lyle Park,41.754125,-87.639842
+323,Magnolia Playlot Park,41.872762,-87.70663
+325,Malus Playlot Park,41.795702,-87.634255
+326,Mandrake Park,41.82445,-87.605065
+327,Mann Park,41.659177,-87.54936
+328,Maple Playlot Park,41.918236,-87.710265
+329,Maplewood Playlot Park,41.911065,-87.690924
+330,Mariano Park,41.901622,-87.628353
+331,Marquette Park,41.771442,-87.702986
+332,Marshfield Playlot Park,41.735769,-87.664427
+333,Martin Playlot Park,41.938963,-87.65235
+334,Mason Playlot Park,41.883345,-87.728445
+335,Matanky Playlot Park,42.007535,-87.681225
+336,Mather Park,41.98885,-87.702955
+337,McGuane Park,41.841312,-87.64962
+338,McInerney Playlot Park,41.813297,-87.644447
+339,McKeon Playlot Park,41.82992,-87.641207
+340,McKiernan Playground Park,41.699359,-87.702297
+341,Mellin Playlot Park,41.982916,-87.669794
+342,Memorial Playlot Park,41.761801,-87.628677
+343,Merrill Playground Park,41.718877,-87.571876
+344,Merrimac Park,41.952922,-87.785104
+345,Merryman Playlot Park,41.949523,-87.670145
+346,Metcalfe Park,41.819097,-87.626327
+347,Meyering Playground Park,41.764928,-87.615263
+348,Miami Playlot Park,41.841617,-87.711045
+349,Micek Playlot,41.796947,-87.677983
+350,Mid North Park,41.923731,-87.639545
+351,Midway Plaisance Park,41.78769,-87.58616
+352,Millard Playlot Park,41.863877,-87.716537
+353,Miller Playlot Park,41.871158,-87.652273
+354,Minuteman Park,41.784494,-87.761994
+355,Moccasin Ranch Playlot Park,41.777849,-87.594598
+356,Montgomery Playground Park,41.773488,-87.689574
+357,Monticello Playlot Park,41.914011,-87.717889
+358,Monument Playlot Park,42.001094,-87.817365
+359,Moore Park,41.878491,-87.752546
+360,Moran Playground Park,41.789938,-87.654748
+361,Morgan Field Park,41.68103,-87.646876
+362,Mt. Greenwood Park,41.691369,-87.713776
+363,Mozart Park,41.917929,-87.722891
+364,Mulberry Playlot Park,41.836402,-87.666377
+365,Mulberry Point Park,41.987579,-87.803709
+366,Munroe Park,41.702672,-87.686992
+367,Myrtle Grove Park,41.99254,-87.805617
+368,Don Nash Community Center,41.765187,-87.581249
+369,Neighbors Garden Playlot Park,41.927273,-87.702356
+370,Nelson Playlot Park,41.93731,-87.701893
+371,Nichols Park,41.799472,-87.592863
+372,Ninebark Playlot Park,41.861654,-87.723792
+373,Noethling Playlot Park,41.929821,-87.653718
+374,Normandy Playground Park,41.797769,-87.788574
+375,North Mayfair Playlot Park,41.973553,-87.742047
+376,North Park Village Nature Center,41.985784,-87.72849
+377,North Shore Beach Park,42.00367,-87.658219
+378,Northerly Island,41.861649,-87.609903
+379,Norwood Circle Park,41.989997,-87.804544
+380,Norwood Park,41.986648,-87.79417
+381,Nottingham Park,41.777348,-87.798772
+382,Oakdale Park,41.721342,-87.647439
+383,Oakley Park,41.776645,-87.681
+384,Ogden Park,41.775814,-87.654403
+385,Ogden Plaza Park,41.889961,-87.620368
+386,OHallaren Park,41.743658,-87.669323
+387,Ohio & Harding Park,41.89177,-87.724735
+388,Ohio Playlot Park,41.891408,-87.743258
+389,Olympia Park,41.999703,-87.814986
+390,Oriole Park,41.979875,-87.81383
+391,Orr Park,41.894272,-87.72605
+392,Owens Park,41.735912,-87.573245
+393,Oz Park,41.918965,-87.647229
+394,Packingtown Playlot Park,41.805798,-87.662478
+395,Palmer Park,41.692654,-87.618073
+396,Palmisano Park,41.8444,-87.646435
+397,Park No 326 Playlot Park,41.777908,-87.593009
+398,Park No 382,41.746565,-87.643935
+399,Park No 399,41.907122,-87.688388
+400,Park No 414,41.902586,-87.73397
+401,Park No 419,41.748952,-87.622927
+402,Park No 421 Playlot Park,41.797722,-87.645254
+403,Murray Playground Park,41.761212,-87.667652
+404,Park No 422 Playlot Park,41.874836,-87.706864
+405,Park No 432 Playlot Park,41.896412,-87.710972
+406,Park No 437 Playlot Park,41.791336,-87.65965
+407,Park No 468,41.791296,-87.736959
+408,Park No 474,41.835671,-87.627867
+410,Park No 489,41.878578,-87.687025
+411,Park No 499,41.706362,-87.529068
+412,Park No 500,41.871551,-87.722873
+413,Park No 503,41.733643,-87.541573
+414,Park No 510,41.87142,-87.680497
+415,Park No 512,41.91384,-87.667749
+416,Park No 513,41.863816,-87.622354
+417,Park No 514,41.906804,-87.717787
+418,Park No 515,41.869981,-87.712025
+419,Park No 516,41.840588,-87.665809
+420,Park No 517,41.989525,-87.655352
+421,Park No 518,42.022533,-87.673644
+422,Park No 519,41.854819,-87.712443
+423,Park No 520,41.898222,-87.673449
+424,Park No 521,41.957088,-87.665823
+425,Park No 523,41.73641,-87.620989
+426,Park No 526,41.990408,-87.707463
+427,Park No 527,41.781687,-87.629236
+428,Park No 528,41.777801,-87.734935
+429,Park No 529,41.912666,-87.681768
+430,Park No 532,41.819465,-87.600461
+431,Park No 534,41.863969,-87.712903
+432,Park No 535,41.916018,-87.649106
+433,Park No 536,41.916018,-87.649106
+434,Park No 538,41.997962,-87.709336
+435,Klein Park,41.946018,-87.673086
+436,Park No 546,41.88513,-87.625239
+437,Park No 551,41.887978,-87.644261
+438,Julia de Burgos Park,41.913972,-87.705162
+439,Park No 555,41.99732,-87.752139
+440,Park No 556,41.928233,-87.691253
+441,Park No 557,42.012395,-87.709011
+442,Park No 558,41.700501,-87.681421
+443,Park No 559,41.993667,-87.655506
+444,Parkview Playlot Park,41.940948,-87.723195
+445,Park West Playlot Park,41.929067,-87.647988
+446,Rainbow Beach & Park,41.76142,-87.555509
+447,Rainey Park,41.749428,-87.730693
+448,Ravenswood Manor Playlot Park,41.964797,-87.699632
+449,Railroad Junction Playlot Park,41.761555,-87.604222
+450,Quinn Park,41.995073,-87.770912
+451,Pullman Playlot Park,41.692653,-87.609878
+452,Pulaski Park,41.907046,-87.663449
+453,Prospect Gardens Park,41.69504,-87.667427
+454,Privet Playlot Park,41.915199,-87.653264
+455,Pritzker Park,41.877969,-87.627689
+456,Pratt Beach Park,42.005562,-87.658849
+457,Prairie Wolf Playlot Pack,41.780106,-87.602888
+458,Pottawattomie Park,42.014448,-87.678672
+461,Poplar Park,41.821179,-87.619911
+462,Pleasant Point Playlot Park,41.998785,-87.79729
+463,Piotrowski Park,41.836811,-87.730889
+464,Pine Playlot Park,41.722482,-87.565878
+465,Pietrowski Park,41.720375,-87.538897
+466,Peterson Park Gymnastics Center,41.985784,-87.72849
+467,Periwinkle Playlot Park,41.77453,-87.627799
+468,Pasteur Park,41.78712,-87.732759
+469,Paschen Park,42.008902,-87.67885
+470,Lucy Ella Gonzales Parsons,41.938841,-87.744533
+471,Renaissance Park,41.750478,-87.65547
+473,Guadalupe Reyes Park,41.856709,-87.647325
+474,Ridge Park,41.718678,-87.669048
+475,Ridge Park Wetlands Park,41.720837,-87.667515
+476,Riis Park,41.923813,-87.778315
+477,Stout Park,41.796814,-87.599694
+478,River Esplande Park,41.888875,-87.617824
+479,Strochacker Park,41.794948,-87.732056
+480,Sumac Park,41.81834,-87.610416
+481,Summerdale Playlot Park,41.977578,-87.808662
+482,Roberts Square Playlot Park,41.971558,-87.757748
+483,Sun Yat-Sen Playlot Park,41.848232,-87.633321
+484,Sunken Gardens Playlot Park,41.963196,-87.694777
+485,Supera Playlot Park,41.92784,-87.658561
+486,Superior Playlot Park,41.894948,-87.679734
+487,Sweet Clover Playlot Park,41.892169,-87.754263
+488,Sycamore Playlot Park,41.802097,-87.599786
+489,Schaefer Playlot Park,41.925762,-87.669513
+490,St. Louis Playlot Park,41.887513,-87.713606
+491,Taylor Park,41.809207,-87.627324
+492,Taylor Lauridsen Playground Park,41.817596,-87.643584
+493,Sain Park,41.880237,-87.687038
+494,The Grove Playlot Park,41.74097,-87.64858
+495,Sacramento Playlot Park,41.945287,-87.70288
+496,Throop Park,41.857552,-87.658833
+497,Thuis Playlot,41.967359,-87.752571
+498,Mamie Till Mobley Park,41.778572,-87.600416
+499,Tilton Park,41.885706,-87.735597
+500,Ping Tom Memorial Park,41.856651,-87.63324
+501,Touhy Park,42.014798,-87.672451
+502,Touhy Herbert Park,41.878692,-87.67928
+503,Trebes Park,41.922634,-87.657144
+504,Trumbull Park,41.704597,-87.565554
+505,Tuley Park,41.730466,-87.611738
+506,Union Park,41.884608,-87.66422
+507,Unity Playlot Park,41.929453,-87.712234
+508,Valley Forge Park,41.784791,-87.796254
+509,Veterans Memorial Park,41.717288,-87.555673
+510,Violet Playlot Park,41.86906,-87.728356
+511,Vittum Park,41.802086,-87.748504
+512,Vogle Playlot Park,41.968717,-87.68172
+513,Wagner Park,41.800623,-87.648925
+514,Wallace Playground Park,41.726987,-87.638834
+515,Walnut Playground Park,41.811588,-87.71918
+516,Walsh Playground Park,41.912999,-87.667718
+517,Chi Che Wang Playlot Park,41.932352,-87.672698
+518,Ward A Montgomery Park,41.893535,-87.641477
+519,Warren Park,42.001428,-87.689963
+520,Dinah Washington Park,41.745965,-87.577079
+521,Washington Park,41.793639,-87.615943
+522,Harold Washington Memorial Park,42.021424,-87.673071
+523,Harold Washington Playlot Park,41.801121,-87.584627
+524,Washington Square Park,41.899881,-87.631313
+525,Weisman Playlot Park,41.935386,-87.65179
+526,Welles Park,41.963144,-87.687275
+527,Wendt Playlot Park,41.94362,-87.646847
+528,Wentworth Park,41.79045,-87.779271
+529,Marlene Wesolek Park,41.651633,-87.537431
+530,West Chatham Park,41.745786,-87.631726
+531,West Pullman Park,41.670632,-87.632089
+532,White Park,41.672245,-87.649838
+533,White Park,42.019388,-87.671555
+534,Wieboldt Playlot Park,41.936918,-87.672111
+535,Wildwood Park,42.007257,-87.778048
+536,Wilson Park,41.964682,-87.75799
+537,Winnemac Park,41.972413,-87.684156
+538,Wolcott Playlot Park,41.77482,-87.671356
+539,Wolfe Playground Park,41.699134,-87.542831
+540,Wood Playlot Park,41.934371,-87.683064
+541,Woodhull Playground Park,41.761645,-87.58355
+542,Wrightwood Park,41.927511,-87.665798
+543,Zatterberg Playlot Park,41.958766,-87.672316
+544,Robichaux Park,41.726179,-87.634832
+545,Rogers Beach Park,42.021153,-87.665157
+546,Rogers Park,42.015068,-87.697286
+547,Ronan Park,41.972137,-87.703898
+548,Roosevelt Park,41.867461,-87.629163
+549,Rosedale Park,41.988433,-87.785764
+550,Rosenblum Park,41.74887,-87.574702
+551,Rowan Park,41.68553,-87.536467
+552,Russell Square Park,41.744676,-87.549839
+553,Rutherford Sayre Park,41.921138,-87.797408
+554,Schreiber Playground Park,41.999018,-87.669414
+555,Scottsdale Playground Park,41.74201,-87.736278
+556,Seneca Playlot Park,41.8968,-87.621545
+557,Senior Citizens Memorial Playlot Park,41.922536,-87.685514
+558,Senka Park,41.790568,-87.710819
+559,Senn Playlot Park,41.988945,-87.66873
+560,Seward Park,41.902852,-87.637255
+561,Shabbona Park,41.945399,-87.799332
+562,Shedd Park,41.84983,-87.716712
+563,Sheil Park,41.945397,-87.66388
+564,Sheridan Park,41.870126,-87.654227
+565,Sherman Park,41.799581,-87.657579
+566,Sherwood Park,41.79087,-87.634059
+567,Simons Park,41.910795,-87.714946
+568,Sintic Playlot Park,41.84295,-87.641501
+569,Skinner Park,41.880262,-87.660371
+570,Smith Park,41.891625,-87.689808
+571,Smith Playlot Park,41.71397,-87.630887
+572,Snapping Turtle,41.89094,-87.703936
+573,Snowberry Playlot Park,41.894152,-87.673349
+574,South Lakeview Playground Park,41.933387,-87.66166
+575,South Shore Cultural Center Field House,41.766744,-87.566461
+576,Spikings Farm Playlot Park,41.966285,-87.727993
+577,Spruce Playlot Park,41.798934,-87.590405
+578,Stanton Park,41.905062,-87.643708
+579,Ellen Gates Starr Park,41.883885,-87.685611
+580,Stars and Stripes Playground Park,41.798647,-87.797829
+581,Stateway Park,41.828049,-87.626497
+582,Margate Park,41.972232,-87.650519
+583,Wilson Park,41.831572,-87.654093
+584,Washtenaw Park,41.845896,-87.692825
+585,Wicker Park,41.907462,-87.677364
+586,Wilson Community Center,41.83539,-87.65594
+587,Williams Park,41.844666,-87.628087
+588,Haines School Park,41.850038,-87.633272
+589,Wentworth Gardens Park,41.826139,-87.631373
+590,The Park at NTA,41.852829,-87.628224
+591,Homan Square Park,41.869977,-87.712435
+592,Levin Park,41.887757,-87.762024
+594,Madero Park,41.84087,-87.705145
+595,Tarkington Park,41.764347,-87.705936
+596,Dyett Recreation Center,41.80214,-87.613752
+597,Jackie Robinson Park,41.70246,-87.647537
+599,Sumner Park,41.870806,-87.733306
+600,Jackson 63rd St Beach,41.78613,-87.577469
+601,Garfield Park Conservatory,41.886439,-87.716505
+604,Lincoln Park Conservatory,41.925423,-87.635932
+605,Lakeshore East Park,41.88513,-87.625239
+606,Erie Park,41.893535,-87.641477
+608,Lincoln Park,41.891932,-87.612953
+609,Jackson Park,41.792304,-87.580336
+610,Lincoln Park North Avenue Beach,41.91548,-87.627519
+611,Chicago State Gymnastics Center,41.721835,-87.61413
+612,Calumet Park Gymnastics Center,41.717787,-87.531596
+613,Garfield Park Gymnastics Center,41.881556,-87.715845
+614,Harrison Park Gymnastics Center,41.857017,-87.671051
+615,Broadway Armory Park Gymnastics Center,41.989532,-87.660252
+616,Shabbona Park Gymnastics Center,41.945399,-87.799332
+617,McKinley Park Gymnastics Center,41.823058,-87.680469
+618,Solorio School Pool,41.795123,-87.710954
+625,Central Region Office,41.881556,-87.715845
+626,North Region Office,42.001428,-87.689963
+627,South Region Office,41.764347,-87.705936
+628,Park No 540,41.848478,-87.622931
+629,Washington Park Refectory,41.790914,-87.614744
+630,Columbus Park Refectory,41.877063,-87.768229
+631,South Shore Cultural Center SEV,41.766744,-87.566461

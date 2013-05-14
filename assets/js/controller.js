@@ -2,64 +2,148 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-function navScripts(val,data,market,parkdata){
+function navScripts(val,data,parkdata){
     $("#main-container").load(val+".php", function(responseTxt,statusTxt,xhr){
         if(statusTxt=="success"){
-          if (val == "contact"){
-            drawTable(data,'contactdiv');
-          } else if (val == "parks2") {
-              $("#leftSide").css("border-right","1px solid #000000");
-          } else if (val == "home"){
-            var pieData = raceData(data);
-            var pieoptions = {
-              title: 'Race Percentages',
-              legend: {position:'none'},
-              height: '100%',
-              sliceVisibilityThreshold: 1/720,
-              tooltip: {trigger: 'none'},
-              legend: {position: 'bottom'}
-            }
-            drawPie(pieData,'pie_div',pieoptions);
-            var scatData = scatterData(data,"Sports","Recency");
-            var scatteroptions = {
-              title: 'Recency vs. Sports',
-              hAxis: {title: 'Sports Programs', minValue: 0},
-              vAxis: {title: 'Recency', minValue: 0},
-              legend: 'none',
-              height: '100%',
-              //theme: 'maximized',
-              pointSize: 4,
-              titlePosition: 'out'
-            }
-            drawScatter(scatData,'scatter_div',scatteroptions);
-            var bubData=bubbleData(data,'Sports','Number of Parks');
-            drawBubble(bubData,'chart_div','Sports','Number of Parks');
-          } else if (val == "rules"){
-              var subgroups = market.getDistinctValues(1);
-              $.each(subgroups, function(val, text) {
-                $('.target2').append( $('<option></option>').val(val).html(text) )
+          if (val == "home"){
+            loadmap(parkdata,"Fall",2012);
+          } else if (val == "parks") {
+              //Load options
+              function loadMenus(parkdata,c,side){
+                  var parks = parkdata.getDistinctValues(11);
+                  $.each(parks, function(val, text) {
+                      $(c+'parks'+side).append( $('<option></option>').val(val).html(text) )
+                  });
+                  var comms = parkdata.getDistinctValues(8);
+                  $.each(comms, function(val, text) {
+                      $(c+'comms'+side).append( $('<option></option>').val(val).html(text) )
+                  });
+                  var areas = parkdata.getDistinctValues(6);
+                  $.each(areas, function(val, text) {
+                      $(c+'areas'+side).append( $('<option></option>').val(val).html(text) )
+                  });
+                  var regions = parkdata.getDistinctValues(5);
+                  $.each(regions, function(val, text) {
+                      $(c+'regions'+side).append( $('<option></option>').val(val).html(text) )
+                  });
+                  var seasons = parkdata.getDistinctValues(2);
+                  $.each(seasons, function(val, text) {
+                      $(c+'seasons'+side).append( $('<option></option>').val(val).html(text) )
+                  });
+                  var years = parkdata.getDistinctValues(1);
+                  $.each(years, function(val, text) {
+                      $(c+'years'+side).append( $('<option></option>').val(val).html(text) )
+                  });
+              }
+              loadMenus(parkdata,'.','');
+              
+              //create bar chart for both charts
+              var options = {
+                  title: 'Enrollment Utilization',
+                  height: 340,
+                  legend: {position: 'top', alignment:'end'},
+                  chartArea: {left:40,top:40,width:"100%",height:"67%"},
+                  //theme: 'maximized',
+                  vAxis: {format:'#%', minValue: 0, maxValue: 1, titleTextStyle: {color: 'red'}},
+                  hAxis: {titleTextStyle: {color: 'red'}, showTextEvery: 1, slantedText: true, slantedTextAngle: 30}
+              };
+              $("#seasonsr").val("1");
+              $("#yearsr").val("0");
+              
+              var index = [11,8,6,5,2,1];
+              var masterGroups=["Aquatics","Camps","Sports","Wellness","General Event","Nature","Culture and Arts","Early Childhood","Out of School Time","Special Interests","Special Recreation"];
+              var groups = masterGroups;
+              var leftData = parkdata;
+              var rightData = getSubset2(parkdata,"Any|Any|Any|Any|Fall|2012|",index);
+              var bardata = barData2(leftData,rightData,groups);
+              var barChart = new google.visualization.ColumnChart(document.getElementById('barChart'));
+              barChart.draw(bardata, options);
+              
+              //On filter change update chart
+              $(".checkbox").change(function(){
+                  var str = "";
+                  $("input[type=checkbox]").each(function () {
+                      if (this.checked){
+                          str += "1|";
+                      } else {
+                          str += "0|";
+                      }
+                  });
+                  groups = new Array();
+                  var temp = new Array();
+                  for (var i=0;i<masterGroups.length;i++){
+                      var pos = str.indexOf("|");
+                      temp.push(parseInt(str.substring(0,pos)));
+                      str = str.substring(pos+1);
+                  }
+                  for (var j=0;j<masterGroups.length;j++){
+                      if (temp[j] == 1){
+                          groups.push(masterGroups[j]);
+                      }
+                  }
+                  bardata = barData2(leftData,rightData,groups);
+                  barChart.draw(bardata, options);
+              })
+              $(".leftF").change(function(){
+                  var str = "";
+                  $(".leftF option:selected").each(function () {
+                      str += $(this).text() + "|";
+                  });
+                  if (str != "Any|Any|Any|Any|Any|Any|"){
+                      leftData = getSubset2(parkdata,str,index);
+                  } else {
+                      leftData = parkdata;
+                  }
+                  bardata = barData2(leftData,rightData,groups);
+                  barChart.draw(bardata, options);
+                  /*$(".leftF").empty();
+                  $(".leftF").append( $('<option></option>').val("any").html("Any") );
+                  loadMenus(parkdata,'#','l');*/
+              });
+              $(".rightF").change(function(){
+                  var str = "";
+                  $(".rightF option:selected").each(function () {
+                      str += $(this).text() + "|";
+                  });
+                  if (str != "Any|Any|Any|Any|Any|Any|"){
+                      rightData = getSubset2(parkdata,str,index);
+                  } else {
+                      rightData = parkdata;
+                  }
+                  bardata = barData2(leftData,rightData,groups);
+                  barChart.draw(bardata, options);
+              });
+              
+          } else if (val == "customers") {
+              //Populate Park Filter
+              $('#max_div').hide();
+              $('#minimize').click(function(){
+                  $(".well").animate({opacity:1,height:20}, 750, function() {
+                      
+                  });
+                  $('#max_div').show();
+                  $('#filters').hide();
+                  return false;
+              })
+              $('#maximize').click(function(){
+                  $('#max_div').hide();
+                  $('#filters').show();
+                  $(".well").animate({opacity:1,height:195}, 750, function() {
+                      
+                  });
+                  return false;
+              })
+              
+              
+              var parks = parkdata.getDistinctValues(11);
+              $.each(parks, function(val, text) {
+                $('#parks').append( $('<option></option>').val(val).html(text) )
                 });
-          } else if (val == "segment") {
-              var str = "Children|Any|Any|Any|Option1|";
-              var heads = ["Age","Recency","Program Cluster","Loyalty Cluster","Other"];
-              var clusData = clusterData(getSubset(data,str,heads),"Program Cluster");
-              var pieoptions = {
-                title: 'Programs',
-                legend: {position:'none'},
-                height: '250',
-                sliceVisibilityThreshold: 1/720,
-                tooltip: {trigger: 'none'}
-              }
-              drawPie(clusData,'pie_div1',pieoptions);
-              var clusData2 = clusterData(getSubset(data,str,heads),"Loyalty Cluster");
-              var pieoptions = {
-                title: 'Loyalty',
-                legend: {position:'none'},
-                height: '250',
-                sliceVisibilityThreshold: 1/720,
-                tooltip: {trigger: 'none'}
-              }
-              drawPie(clusData2,'pie_div2',pieoptions);
+                
+              var nullstr = "Any|Any|||||false|true|false|false|false|false|false|false|false|false|false|";
+              var heads = [17,5,4,4,20,20,6,12,7,13,8,14,9,15,10,16,11];
+              var tableData = data;
+              drawTable(data,'table_div');
               
               $(".hero-unit").click(function(){
                 $(".hero-unit").animate({opacity:0,height:0}, 750, function() {
@@ -67,106 +151,76 @@ function navScripts(val,data,market,parkdata){
                 });
                 return false;
               });
-              $("select").change(function () {
-                var str = "";
-                $("select option:selected").each(function () {
-                  str += $(this).text() + "|";
-                });
-                var prog = $("#programs").find("option:selected").text();
-                var loy = $("#loyalty").find("option:selected").text();
-                
-                var heads = ["Age","Recency","Program Cluster","Loyalty Cluster","Other"];
-                var tempData = getSubset(data,str,heads);
-                drawTable(tempData,'contactdiv');
-                
-                //output charts
-                if (prog == "Any"){
-                    var clusData = clusterData(tempData,"Program Cluster");
-                    var pieoptions = {
-                      title: 'Programs',
-                      legend: {position:'none'},
-                      height: '250',
-                      sliceVisibilityThreshold: 1/720,
-                      tooltip: {trigger: 'none'}
-                    }
-                    if (clusData.getNumberOfRows() > 0){
-                        drawPie(clusData,'pie_div1',pieoptions);
-                    } else {
-                        $("#pie_div1").html("<h3>No matching customers</h3>");
-                    }
-                } else {
-                    var scatData = scatterData(tempData,"Summer Participation","Weekday Participation");
-                    var scatteroptions = {
-                      title: 'Summer vs. Weekday',
-                      hAxis: {title: 'Summer', minValue: 0},
-                      vAxis: {title: 'Weekday', minValue: 0},
-                      legend: 'none',
-                      height: '250',
-                      //theme: 'maximized',
-                      pointSize: 4,
-                      titlePosition: 'out'
-                    }
-                    if (scatData.getNumberOfRows() > 0){
-                        drawScatter(scatData,'pie_div1',scatteroptions);
-                    } else {
-                        $("#pie_div1").html("<h3>No matching customers</h3>");
-                    }
-                }
-                
-                if (loy == "Any"){
-                    var clusData2 = clusterData(tempData,"Loyalty Cluster");
-                    var pieoptions2 = {
-                      title: 'Loyalty',
-                      legend: {position:'none'},
-                      height: '250',
-                      sliceVisibilityThreshold: 1/720,
-                      tooltip: {trigger: 'none'}
-                    }
-                    if (clusData2.getNumberOfRows() > 0){
-                        drawPie(clusData2,'pie_div2',pieoptions2);
-                    } else {
-                        $("#pie_div2").html("<h3>No matching customers</h3>");
-                    }
-                } else {
-                    var scatData2 = scatterData(tempData,"Summer Participation","Weekday Participation");
-                    var scatteroptions2 = {
-                      title: 'Summer vs. Weekday',
-                      hAxis: {title: 'Summer', minValue: 0},
-                      vAxis: {title: 'Weekday', minValue: 0},
-                      legend: 'none',
-                      height: '250',
-                      //theme: 'maximized',
-                      pointSize: 4,
-                      titlePosition: 'out'
-                    }
-                    if (scatData2.getNumberOfRows() > 0){
-                        drawScatter(scatData2,'pie_div2',scatteroptions2);
-                    } else {
-                        $("#pie_div2").html("<h3>No matching customers</h3>");
-                    }
-                }
-                
-                //Change Description for selected cluster
-                  if (prog != "Any"){
-                      for (var i=0; i<programs.length;i++){
-                          if (programs[i] == prog){
-                              $("#Pro").find("p").text(prodescs[i]);
-                              $("#Pro").find("h2").text(programs[i]);
-                          }
-                      }
-                  }
-                  if (loy != "Any"){
-                      for (var j=0; j<loyalty.length;j++){
-                          if (loyalty[j] == loy){
-                              $("#Loy").find("p").text(loydescs[j]);
-                              $("#Loy").find("h2").text(loyalty[j]);
-                          }
-                      }
-                  }
+              
+              //create filter string
+              
+              $("#submit").click(function () {
+                  var fstr = "";
+                  $(".filter option:selected").each(function () {
+                      fstr += $(this).text() + "|";
+                  });
+                  $(".tbox").each(function(){
+                      fstr += $(this).val() + "|";
+                  });
+                  $(".target").each(function(){
+                      fstr += $(this).attr('checked') + "|";
+                  });
+                  var tempData = getSubset(data,fstr,heads);
+                  drawTable(tempData,'table_div');
               });
+              function reset(){
+                  $('#gender').val("Any");
+                  $('#minAge').val("");
+                  $('#maxAge').val("");
+                  $('#minRec').val("");
+                  $('#maxRec').val("");
+                  $('#aquatics').attr('checked', false);
+                  $('#school').attr('checked', false);
+                  $('#camps').attr('checked', false);
+                  $('#interests').attr('checked', false);
+                  $('#arts').attr('checked', false);
+                  $('#recreation').attr('checked', false);
+                  $('#child').attr('checked', false);
+                  $('#sports').attr('checked', false);
+                  $('#event').attr('checked', false);
+                  $('#wellness').attr('checked', false);
+                  $('#nature').attr('checked', false);
+              }
+              $("#clusters").change(function () {
+                  var opt = $(this).find("option:selected").text();
+                  if (opt == "After Schoolers"){
+                      reset();
+                      $('#school').attr('checked', true);
+                      $('#maxAge').val("18");
+                  } else if (opt == "Early Childhood"){
+                      reset();
+                      $('#arts').attr('checked', true);
+                      $('#early').attr('checked', true);
+                      $('#sports').attr('checked', true);
+                      $('#maxAge').val("18");
+                  } else if (opt == "Summer Campers"){
+                      reset();
+                      $('#camps').attr('checked', true);
+                      $('#maxAge').val("18");
+                  } else if (opt == "All-Arounders"){
+                      reset();
+                      $('#aquatics').attr('checked', true);
+                      $('#camps').attr('checked', true);
+                      $('#arts').attr('checked', true);
+                      $('#sports').attr('checked', true);
+                      $('#maxAge').val("18");
+                  } else if (opt == "Sports Lovers"){
+                      reset();
+                      $('#sports').attr('checked', true);
+                      $('#maxAge').val("18");
+                  } else if (opt == "Water Lovers"){
+                      reset();
+                      $('#aquatics').attr('checked', true);
+                      $('#maxAge').val("18");
+                  }
+              })
           }
-        }
-        if(statusTxt=="error"){
+        } else if(statusTxt=="error"){
             $(".spinner").hide();
           alert("Error: "+xhr.status+": "+xhr.statusText);
         }

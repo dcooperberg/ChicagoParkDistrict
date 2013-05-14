@@ -5,7 +5,7 @@
 function drawTable(data,div) {
     var output = new Array();
     var titles = new Array();
-    var cols = [0,1,2,3,6,30,31];
+    var cols = [0,1,2,3,4,5,20];
     for (var i=0;i<cols.length;i++){
         titles.push(data.getColumnLabel(cols[i]));
     }
@@ -32,225 +32,54 @@ function drawTable(data,div) {
     var table = new google.visualization.Table(document.getElementById(div));
     table.draw(results, options);
 }
-function drawPie(data,div,options/*,type,values,labels,descs,title*/){
-    //if (type === 'google'){
-        var piechart = new google.visualization.PieChart(document.getElementById(div));
-        function selectHandler() {
-          var selectedItem = piechart.getSelection()[0];
-          if (selectedItem) {
-              var topping = data.getValue(selectedItem.row, 0);
-              var loc = topping.indexOf("|");
-              var title = topping.substring(0,loc);
-              var desc = topping.substring(loc+1);
-            $("#"+options.title.substring(0,3)).find("h2").text(title);
-            $("#"+options.title.substring(0,3)).find("p").text(desc);
-          }
-        }
 
-        google.visualization.events.addListener(piechart, 'select', selectHandler);       
-        
-        piechart.draw(data, options);
-    /*} else if (type === 'raphael'){
-        Raphael(div, 250, 250).pieChart(125, 125, 90, values, labels, descs, "#fff",title);
-        $("#"+div).find(".spinner").hide();
-    }*/
-}
-function drawScatter(data,div,options/*,type,data2,axisx,axisy*/){
-    //if (type === 'google'){
-        var scatterplot = new google.visualization.ScatterChart(document.getElementById(div));
-        scatterplot.draw(data, options);
-    /*} else if (type === 'raphael'){
-        //Raphael("scatter_div",250,250).scatterPlot(250,250, data2, axisx, axisy);
-        //$("#scatter_div").find(".spinner").hide();
-    }*/
-}
-function drawBubble(data,div,x,y/*,type,data2,axisx,axisy*/){
-    //if (type === 'google'){
-        var bubbleoptions = {
-          title: x+' vs. '+y,
-          hAxis: {title: x, minValue: 0},
-          vAxis: {title: y, minValue: 0},
-          height: '100%',
-          legend: 'none',
-          titlePosition: 'out',
-          sizeAxis: {minSize: 3,maxSize: 10},
-          colors: ['red','yellow','green','green']
-          //theme: 'maximized'
-        }
-        var bubbleplot = new google.visualization.BubbleChart(document.getElementById(div));
-        bubbleplot.draw(data, bubbleoptions);
-    /*} else if (type === 'raphael'){
-        //Raphael("scatter_div",250,250).scatterPlot(250,250, data2, axisx, axisy);
-        //$("#scatter_div").find(".spinner").hide();
-    }*/
-}
-
-function clusterData(data,cluster){
-    var index = -1;
-    for (var i=0; i<data.getNumberOfColumns(); i++){
-        if (data.getColumnLabel(i) == cluster){
-            index = i;
-        }
-    }
-    var labels = data.getDistinctValues(index);
-    var values = new Array();
-    for (var j=0; j<labels.length;j++){
-        values.push(0);
-    }
-    for (var k=0;k<data.getNumberOfRows();k++){
-        for (var l=0; l<labels.length; l++){
-            if (data.getValue(k,index) == labels[l]){
-                values[l] = values[l] + 1;
-            }
-        }
-    }
-    var output = new Array();
-    output.push([cluster,"Count"]);
-    for (var m=0;m<labels.length;m++){
-        //var loc = labels[m].indexOf("|");
-        output.push([labels[m],values[m]]);
-    }
-    var results = google.visualization.arrayToDataTable(output);
-    return results;
-}
-function raceData(data){
-    var labels = new Array("White","Black","Hispanic");
-    var values = new Array(0,0,0);
-    for (var i=0; i<data.getNumberOfRows();i++){
-        values[0] = values[0] + data.getValue(i,27);
-        values[1] = values[1] + data.getValue(i,28);
-        values[2] = values[2] + data.getValue(i,29);
-    }
-    var output = new Array();
-    output.push(["Race","Count"]);
-    for (var j=0;j<labels.length;j++){
-        if (values[j]>0){
-            output.push([labels[j],values[j]]);
-        }
-    }
-    var results = google.visualization.arrayToDataTable(output);
-    return results;
-}
-
-function scatterData(data,x,y){
-    var xindex = -1;
-    var yindex = -1;
-    for (var i=0; i<data.getNumberOfColumns(); i++){
-        if (data.getColumnLabel(i) == x){
-            xindex = i;
-        } else if (data.getColumnLabel(i) == y){
-            yindex = i;
-        }
-    }
-    var output = new Array();
-    output.push([x,y]);
-    for (var j=0;j<data.getNumberOfRows();j++){
-        output.push([data.getValue(j,xindex),data.getValue(j,yindex)]);
-    }
-    var results = google.visualization.arrayToDataTable(output);
-    return results;
-}
-
-function bubbleData(data,x,y){
-    var xindex = -1;
-    var yindex = -1;
-    for (var l=0; l<data.getNumberOfColumns(); l++){
-        if (data.getColumnLabel(l) == x){
-            xindex = l;
-        } else if (data.getColumnLabel(l) == y){
-            yindex = l;
-        }
-    }
-    var xys = new Array();
-    xys.push([data.getValue(0,xindex),data.getValue(0,yindex),1]);
-    for (var i=1; i<data.getNumberOfRows();i++){
-        var write = true;
-        for (var j=0; j<xys.length;j++){
-            if (data.getValue(i,xindex) == xys[j][0]){
-                if (data.getValue(i,yindex) == xys[j][1]){
-                    write = false;
-                    xys[j][2] = xys[j][2]+1;
-                }
-            }
-        }
-        if (write == true){
-            xys.push([data.getValue(i,xindex),data.getValue(i,yindex),1]);
-        }
-    }
-    var output = new Array();
-    output.push(['ID',x,y,'color','count']);
-    for (var k=0;k<xys.length;k++){
-        if (parseFloat(xys[k][0]) != 0 || parseFloat(xys[k][1])){
-            output.push(['',parseFloat(xys[k][0]),parseFloat(xys[k][1]),xys[k][2],xys[k][2]]);
-        }    
-    }
-    var results = google.visualization.arrayToDataTable(output);
-    return results;
-}
-
-function getSubset(data,str,fields){
-    var pDescs = new Array();
-    var lDescs = new Array();
-    var programs = new Array();
-    var loyalties = new Array();
-    pDescs.push("Customers in the After-Schoolers group are characterized by high schoolyear, weekday, and afternoon/evening participation rates. They have a higher than average participation rate in out-of-school activities and special recreation programs, and tend to enroll in programs with a higher than average age range (approximately 5 years).","Early Childhood Participants have their highest participation in early childhood programs and typically register for programs during the schoolyear. These customers also tend to register in weekday programs with a lower percentage of summer programs than average and prefer sports, culture & arts, and special interest programs.","Customers in the Summer Campers group have registered for almost 2 camps on average, with primarily weekday and summer program registrations. Although they do not participate in any other types of programs very frequently, the most common groups other than camps are out-of-school time, sports, and aquatics.","The All-Arounders participate in the most distinct program types. They most often participate in sports, culture & arts, early childhood, camps, and aquatics programs. These customers also have a lower than average summer participation rate and a higher than average participation rate in special interest, wellness, general event, and nature programs.","Sports Lovers have very high sports program registration rates similar to All-Arounders, but do not tend to register for other program categories at a very high frequency. When they do register for other program categories, they tend to choose aquatics and camps. About a fifth of their registrations are for summer programs, which is lower than average. ","These customers frequently register for weekend programs, with an average of 77.4% of their programs meeting at least once on a weekend. They are year-round participants that have generally low participation rates favoring aquatics and sports. Additionally, their programs tend to start earlier in the day.");
-    programs.push("After Schoolers","Early Childhood Participants","Summer Campers","All Arounders","Sports Lovers","Weekenders");
-    loyalties.push("One Time Participants","Occasional Average Spenders","Parkies","Occasional Big Spenders","Selective Big Spenders","Deal Seekers");
-    
-lDescs.push("Very high recency, and very low frequency. Average spend. Mostly one park",
-"High recency, and low frequency. Different types of programs but only one park.",
-"Have participated recently, and participate very frequently. Spend an average amount and go to multiple parks",
-"Have not participated recent, and frequency is relatively low. Tend to spend a lot on a mix of programs at several parks.",
-"High recency, and a high frequency. Mostly one type of program at a mix of parks",
-"Have participated recently, but spend very little on different types of program at only one park.");
-    
+function getSubset(data,str,index){
+    //Separate String of Filters
     var filters = new Array();
     var rows = new Array();
-    for (var h=0;h<fields.length;h++){
+    for (var h=0;h<index.length;h++){
         var pos = str.indexOf("|");
         filters.push(str.substring(0,pos));
         str = str.substring(pos+1);
     }
-    var index = new Array();
-    for (var g=0;g<fields.length;g++){
-        for (var j=0;j<data.getNumberOfColumns();j++){
-            if (fields[g] == data.getColumnLabel(j)){
-                index.push(j);
+    //Set filter rules by column
+    var val = '';
+    for (var i=0; i<index.length;i++){
+        val = filters[i];
+        if (i == 0){
+            if (val != "Any"){
+                rows.push(data.getFilteredRows([{column: index[i], value: val}]));
             }
-        }
-    }
-    for (var i=0; i<fields.length;i++){
-        if (fields[i] == "Age"){
-            if (filters[i] == "Adults"){
-                var ageMin = 19;
-                var ageMax = 100;
+        } else if (i == 1){
+            if (val != "Any"){
+                if (val == "Male"){
+                    val = "M";
+                } else if (val == "Female"){
+                    val = "F";
+                }
+                rows.push(data.getFilteredRows([{column: index[i], value: val}]));
+            }
+        } else if (i == 2 || i == 4){
+            if (parseInt(val) > 0 ){
+                rows.push(data.getFilteredRows([{column: index[i], minValue: val}]));
+            }
+        } else if (i == 3 || i == 5){
+            if (parseInt(val) > 0){
+                rows.push(data.getFilteredRows([{column: index[i], maxValue: val}]));
+            }
+        } else if (i >= 6){
+            if (val == "false"){
+                val = false;
             } else {
-                var ageMin = 0;
-                var ageMax = 18;
+                val = true;
             }
-            rows.push(data.getFilteredRows([{column: index[i], minValue: ageMin, maxValue: ageMax}]));
-        } else if (fields[i] == "Program Cluster"){
-            var PC = filters[i];
-            for (var pp=0; pp<programs.length;pp++){
-                if (PC == programs[pp]){
-                    var pindex = pp;
-                }
-            }
-            if (PC != "Any"){
-                rows.push(data.getFilteredRows([{column: index[i],value:PC+"|"+pDescs[pindex]}]));
-            }
-        } else if (fields[i] == "Loyalty Cluster"){
-            var LC = filters[i];
-            for (var qq=0; qq<loyalties.length;qq++){
-                if (LC == loyalties[qq]){
-                    var lindex = qq;
-                }
-            }
-            if (LC != "Any"){
-                rows.push(data.getFilteredRows([{column: index[i],value:LC+"|"+lDescs[lindex]}]));
+            if (val){
+                rows.push(data.getFilteredRows([{column: index[i], minValue: 1}]));
             }
         }
     }
+    
+    //Get final list of Rows
     var finalRows = new Array();
     for (var a=0;a<rows[0].length;a++){
         var add = new Array();
@@ -273,6 +102,7 @@ lDescs.push("Very high recency, and very low frequency. Average spend. Mostly on
         }
     }
     
+    //Create output table
     var output = new Array();
     var titles = new Array();
     for (var jj=0;jj<data.getNumberOfColumns();jj++){
@@ -289,18 +119,75 @@ lDescs.push("Very high recency, and very low frequency. Average spend. Mostly on
     var results = google.visualization.arrayToDataTable(output);
     return results;
 }
-function loadmap(parkdata){
+function getSubset2(data,str,index){
+    //Separate String of Filters
+    var filters = new Array();
+    var rows = new Array();
+    for (var h=0;h<index.length;h++){
+        var pos = str.indexOf("|");
+        filters.push(str.substring(0,pos));
+        str = str.substring(pos+1);
+    }
+    
+    //Set filter rules by column
+    var val = '';
+    for (var i=0; i<index.length;i++){
+        val = filters[i];
+        if (val != "Any"){
+            if (parseInt(val,10)>0){
+                val = parseInt(val);
+            }
+            rows.push(data.getFilteredRows([{column: index[i], value: val}]));
+        }
+    }
+    //Get final list of Rows
+    var finalRows = new Array();
+    for (var a=0;a<rows[0].length;a++){
+        var add = new Array();
+        for (var bb=1;bb<rows.length; bb++){
+            add.push(1);
+        }
+        for (var b=1; b<rows.length; b++){
+            for (var c=0; c<rows[b].length; c++){
+                if (rows[0][a] == rows[b][c]){
+                    add[b-1] = 0;
+                }
+            }
+        }
+        var sum = 0;
+        for (var cc=0; cc<add.length;cc++){
+            sum = sum + add[cc];
+        }
+        if (sum == 0 || rows.length == 1){
+            finalRows.push(rows[0][a]);
+        }
+    }
+    
+    //Create output table
+    var output = new Array();
+    var titles = new Array();
+    for (var jj=0;jj<data.getNumberOfColumns();jj++){
+        titles.push(data.getColumnLabel(jj));
+    }
+    output.push(titles);
+    for (var n=0; n<finalRows.length;n++){
+        var temp = new Array();
+        for (var p=0; p<data.getNumberOfColumns();p++){
+            temp.push(data.getValue(finalRows[n],p));
+        }
+        output.push(temp);
+    }
+    var results = google.visualization.arrayToDataTable(output);
+    return results;
+}
+function loadmap(parkdata,season,year){
     var map;
     var mapOptions = {
         zoom: 11,
         center: new google.maps.LatLng(41.850233,-87.638532),
-        mapTypeId: google.maps.MapTypeId.ROADMAP
+        mapTypeId: google.maps.MapTypeId.TERRAIN
     };
-    $('#map_canvas').height("500px");
-    //$('#map_canvas').height($(window).height());
-    /*$(window).on('resize', function() {
-        $('#map_canvas').height($(window).height()-40)
-    });*/
+    $('#map_canvas').height("480px");
     $(function() {
         $("#map_canvas").mousemove(function(e){
             mouseXpos = e.pageX 
@@ -331,7 +218,8 @@ function loadmap(parkdata){
     };
     
     map = new google.maps.Map(document.getElementById('map_canvas'),mapOptions);
-    jQuery.getJSON('parks.json',function(data){
+    //Add polygons
+    jQuery.getJSON('assets/data/parks.json',function(data){
         $.each(data,function(i){
             var MapCoords = [];
             $.each(data[i].Points, function(j){
@@ -343,9 +231,9 @@ function loadmap(parkdata){
                 strokeOpacity: 0.7,
                 strokeWeight: 1,
                 fillColor: "#079626",
-                fillOpacity: 0.5
+                fillOpacity: 0.3
             });
-            google.maps.event.addListener(polygon,"mouseover",function(){
+            /*google.maps.event.addListener(polygon,"mouseover",function(){
                 this.setOptions({filleOpacity: 5});
                 var html = '';
                 if (data[i].Title != ''){
@@ -370,21 +258,222 @@ function loadmap(parkdata){
             })
             google.maps.event.addListener(polygon,"click",function(){
                 //window.location = data[i].ParkURL;
-            })
+            })*/
             polygon.setMap(map);
             if (data[i].FitTo){
                 polygon.setOptions({
-                    fillOpacity: 0.5,fillColor: "#079626"
+                    fillOpacity: 0.5,
+                    fillColor: "#079626"
                 })
                 map.fitBounds(polygon.getBounds());
             }
         })
     })
-    google.maps.event.addListener(map, 'click', function(){
-        google.maps.event.addListenerOnce(map,"zoom_changed",function() {
-            if (map.draggable == false){
-                map.draggable = true;
+    
+    //Add points
+    var parks = parkdata.getDistinctValues(0);
+    var markers = new Array();
+    for (var i = 0; i<parks.length; i++){
+        var spots = 0;
+        var enroll = 0;
+        var found = false;
+        var lat = 0;
+        var lng = 0;
+        var title = "";
+        var hood = "";
+        var area = "";
+        var reg = "";
+        for (var j =0; j<parkdata.getNumberOfRows();j++){
+            if (parkdata.getValue(j,0) == parks[i] && parkdata.getValue(j,2) == season && parkdata.getValue(j,1) == year){
+                spots += parkdata.getValue(j,9);
+                enroll += parkdata.getValue(j,10);
+                if (found == false){
+                    lat = parkdata.getValue(j,12);
+                    lng = parkdata.getValue(j,13);
+                    title = parkdata.getValue(j,11);
+                    hood = parkdata.getValue(j,8);
+                    area = parkdata.getValue(j,6);
+                    reg = parkdata.getValue(j,5);
+                }
+                found = true;
             }
+        }        
+        
+        var myLatlng = new google.maps.LatLng(lat,lng);
+        var util = enroll/spots;
+        var mColor = 'red';
+        if (util >= .75){
+            mColor = 'green';
+        } else if (util >= .5){
+            mColor = 'yellow';
+        }
+        
+        var marker = new google.maps.Marker({
+            position: myLatlng,
+            icon: {
+                path: google.maps.SymbolPath.CIRCLE,
+                scale: 5,
+                strokeWeight: 1,
+                fillColor: mColor,
+                fillOpacity:.75
+            },
+            title:title
         });
-    });
+        /*google.maps.event.addListener(marker,"mouseover",function(){
+            $("#tooltip").show();
+            $("#tooltip").text(this.title);
+            $('#tooltip').css('top', mouseYpos);
+            $('#tooltip').css('left', mouseXpos+10);
+        })
+        google.maps.event.addListener(marker,"mouseout",function(){
+            $("#tooltip").hide();
+        })*/
+        google.maps.event.addListener(marker,"click",function(){
+            $("#chart_title").html("<h1><small>"+this.title+"</small></h1>");
+            drawLine(parkdata,this.title);
+        })
+        
+        var temp =[marker,parkdata.getValue(i,11),util,hood,area,reg];
+        markers.push(temp);
+    }
+    for (var k=0;k<markers.length;k++){
+        markers[k][0].setMap(map);
+    }
+}
+function drawLine(parkdata,park){
+    var seasons = new Array();
+    var spots = new Array();
+    var enroll = new Array();
+    //var totseas = new Array();
+    for (var i = 0;i<parkdata.getNumberOfRows();i++){
+        if (parkdata.getValue(i,11) == park){
+            var found = false;
+            var seas = parkdata.getValue(i,1)+"|"+parkdata.getValue(i,2)
+            for (var j=0;j<seasons.length;j++){
+                if (seas == seasons[j]){
+                    spots[j] += parkdata.getValue(i,9);
+                    enroll[j] += parkdata.getValue(i,10);
+                    found = true;
+                }
+            }
+            if (found == false){
+                seasons.push(seas);
+                spots.push(parkdata.getValue(i,9));
+                enroll.push(parkdata.getValue(i,10));
+            }
+        }
+    }
+    var output = new Array();
+    for (var k=0;k<seasons.length;k++){
+        var loc = seasons[k].indexOf("|");
+        var sea = seasons[k].substr(loc+1);
+        var mon = 0;
+        if (sea == "Fall"){
+            mon = 8;
+        } else if (sea == "Summer"){
+            mon = 5;
+        } else if (sea == "Spring"){
+            mon = 2;
+        }
+        if (sea != "Events"){
+            output.push([new Date(parseInt(seasons[k].substr(0,loc)),mon),0.7,0.5,Math.min(1,enroll[k]/spots[k])]);
+        }
+    }
+    var results = new google.visualization.DataTable();
+    results.addColumn('date', 'Season');
+    results.addColumn('number', 'Green');
+    results.addColumn('number', 'Yellow');
+    results.addColumn('number', 'Utilization');
+    for (var l=0;l<output.length;l++){
+        results.addRow(output[l]);
+    }
+    results.sort(0);
+    //var results = google.visualization.arrayToDataTable(output);
+    var options = {
+        legend: {position: 'none'},
+        chartArea: {left:60,top:10,width:"85%",height:"60%"},
+        vAxis: {title:'Park Utilization',format:'#%', minValue: 0, maxValue: 1},
+        hAxis: {},
+        series: {0:{color:'#99ff99'},1:{color:'#ff9999'},2:{color:'blue',pointSize:6,curveType:'linear',lineWidth:3}}
+    }
+    var line = new google.visualization.LineChart(document.getElementById('line_div'));
+    line.draw(results, options);
+}
+
+function barData(parkData){
+    var groups = parkData.getDistinctValues(4);
+    var spots = new Array();
+    var enroll = new Array();
+    for (var i=0;i<groups.length;i++){
+        spots.push(0);
+        enroll.push(0);
+    }
+    for (var j=0;j<parkData.getNumberOfRows();j++){
+        for (var k=0;k<groups.length;k++){
+            if (groups[k] == parkData.getValue(j,4)){
+                spots[k] = spots[k] + parkData.getValue(j,9);
+                enroll[k] = enroll[k] + parkData.getValue(j,10);
+            }
+        }
+    }
+    var output = new Array();
+    output.push(["Group","Utilization"]);
+    for (var m=0;m<groups.length;m++){
+        var util = enroll[m]/spots[m];
+        output.push([groups[m],util]);
+    }
+    var results = google.visualization.arrayToDataTable(output);
+    return results;
+}
+function barData2(parkData,parkData2,groups){
+    var spots = new Array();
+    var enroll = new Array();
+    for (var i=0;i<groups.length;i++){
+        spots.push(0);
+        enroll.push(0);
+    }
+    for (var j=0;j<parkData.getNumberOfRows();j++){
+        for (var k=0;k<groups.length;k++){
+            if (groups[k] == parkData.getValue(j,4)){
+                spots[k] = spots[k] + parkData.getValue(j,9);
+                enroll[k] = enroll[k] + parkData.getValue(j,10);
+            }
+        }
+    }
+    var groups2 = groups;
+    var spots2 = new Array();
+    var enroll2 = new Array();
+    for (var i=0;i<groups2.length;i++){
+        spots2.push(0);
+        enroll2.push(0);
+    }
+    for (var j=0;j<parkData2.getNumberOfRows();j++){
+        for (var k=0;k<groups2.length;k++){
+            if (groups2[k] == parkData2.getValue(j,4)){
+                spots2[k] = spots2[k] + parkData2.getValue(j,9);
+                enroll2[k] = enroll2[k] + parkData2.getValue(j,10);
+            }
+        }
+    }
+    
+    var output = new Array();
+    output.push(["Group","Left","Right"]);
+    for (var m=0;m<groups.length;m++){
+        if (groups[m] != "Partnership Rental Offerings"){
+            var util = Math.round(10000*(enroll[m]/spots[m]))/10000;
+            var match = false;
+            for (var n=0;n<groups2.length;n++){
+                if (groups2[n] == groups[m]){
+                    var util2 = Math.round(10000*(enroll2[n]/spots2[n]))/10000;
+                    output.push([groups[m],util,util2]);
+                    match = true;
+                }
+            }
+            if (match == false){
+                output.push([groups[m],util,0]);
+            }
+        }
+    }
+    var results = google.visualization.arrayToDataTable(output);
+    return results;
 }

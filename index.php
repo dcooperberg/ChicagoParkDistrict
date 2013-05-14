@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,12 +28,9 @@
     <![endif]-->
 
     <!-- Fav and touch icons -->
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/apple-touch-icon-114-precomposed.png">
-      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png">
-                    <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png">
-                                   <link rel="shortcut icon" href="assets/img/CPDlogo.png">
+  <link rel="shortcut icon" href="assets/img/CPDlogo.png">
   </head>
+  
   <script type='text/javascript' src='https://www.google.com/jsapi'></script>
   <script type='text/javascript' src="assets/js/jquery.js"></script>
   <script type='text/javascript' src='assets/js/bootleg.js'></script>
@@ -44,49 +40,42 @@
   <script type="text/javascript">
     google.load('visualization', '1', {packages:['table']});
     google.load("visualization", "1", {packages:["corechart"]});
-    var programs = new Array();
-    var prodescs = new Array();
-    var loyalty = new Array();
-    var loydescs = new Array();
     
     <?php
+        //Combine all PHP into one file
         include 'GetData.php';
-        include 'visualizations.php';
-        $data = colRange(rowRange(getData("testdata1.csv"),0,300),0,29);
-        $programs = getData('testcluster1.csv');
-        $loyalty = getData('testcluster2.csv');
-        $market = getData('mbtest.csv');
-        $parks = getData('CPD_Park Performance Data_v1.csv');
-        for ($i = 1; $i<count($programs);$i++){
-            $loc = strpos($programs[$i][0],"|");
-            echo "programs.push('".substr($programs[$i][0],0,$loc)."');\n";
-            echo "prodescs.push('".substr($programs[$i][0],$loc+1)."');\n";
-        }
-        for ($j = 1; $j<count($loyalty);$j++){
-            $loc2 = strpos($loyalty[$j][0],"|");
-            echo "loyalty.push('".substr($loyalty[$j][0],0,$loc2)."');\n";
-            echo "loydescs.push('".substr($loyalty[$j][0],$loc2+1)."');\n";
-        }
-        //$paths = file_get_contents("parks.txt");
+        
+        //Load Customer Data
+        $customers = calcFields(getData("assets/data/CPD_Customer Attr and Park Use Data_v2.csv"));
+        
+        
+        //Load Parks Data
+        $parks = getData('assets/data/CPD_Park Performance Data_v2.csv');
+        $latlong = getData('assets/data/CPD Park Locations.csv');
     ?>
     
-    $(document).ready(function(){
-        
-    });
     function initialize(){
         <?php
-        googleTable(addCluster(addCluster($data,$programs,"Program Cluster"),$loyalty,"Loyalty Cluster"),"data");
-        googleTable($market,"market");
-        googleTable($parks,"parkdata");
+        //Assemble tables in PHP
+        $parkdata = addParkData($parks,$latlong);
+        
+        //Create appropriate Google Tables
+        googleTable($customers,"customers"); // 30-50k by 20
+        googleTable($parkdata,"parkdata"); //15-30k by 8
+        //googleTable($custpark,"custpark"); //200k by 2
+        
         ?>
-            navScripts("home",data,market,parkdata);
+        //Load Welcome Page
+        navScripts("home",customers,parkdata);
+        
+        //Controller for Navigation Menu
         $(".reload").click(function(){
             $("#main-container").html("<p class='spinner' style='text-align:center;top:100px;position:relative'><img style='top:50px;height:50px' src='assets/img/spinner.gif'></p>");
             var hash = this.href.indexOf("#");
             var val = this.href.substring(hash+1);
             $("li").removeClass("active");
             $("li#"+val).addClass("active");
-            navScripts(val,data,market);
+            navScripts(val,customers,parkdata);
         });
     }
 </script>
@@ -104,10 +93,8 @@
             <ul class="nav">
               <li id="home" class="active"><a class="reload" href="#home">Home</a></li>
               <li id="parks"><a class="reload" href="#parks">Park Performance</a></li>
-              <li id="segment"><a class="reload" href="#segment">Segmentation</a></li>
-              <li id="rules"><a class="reload" href="#customers2">Association Rules</a></li>
-              <li id="about"><a class="reload" href="#parks3">About</a></li>
-              <li id="contact"><a class="reload" href="#contact">Contact</a></li>
+              <li id="customers"><a class="reload" href="#customers">Customers</a></li>
+              <li id="about"><a class="reload" href="#about">About</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -116,7 +103,6 @@
       
     <div id="main-container" class="container"></div>
     <!-- /container -->
-    <hr>
     <div id="footer">
       <div class="container">
         <p class="muted credit">Portal courtesy of 
