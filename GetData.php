@@ -15,45 +15,40 @@ function googleTable($data,$var){
         if ($jj<count($data[0])-1){
             echo ",";
         } else {
-            echo "],";
+            echo "]";
         }
     }
+    $cols = count($data[0]);
     for ($i=1; $i< count($data); $i++){
-        echo "[";
-        for ($j=0; $j<count($data[0]); $j++){
-            if ($type[$j] == "string"){
-                echo "'";
+        if (count($data[$i]) == $cols){
+            echo ",\n[";
+            for ($j=0; $j<count($data[0]); $j++){
+                if ($type[$j] == "string"){
+                    echo "'";
+                }
+                if ($type[$j] == "numeric" && $data[$i][$j] == ''){
+                    echo "0";
+                } else {
+                    echo $data[$i][$j];
+                }
+                if ($type[$j] == "string"){
+                    echo "'";
+                }
+                if ($j<count($data[0])-1){
+                    echo ",";
+                } else {
+                    echo "]";
+                }
             }
-            if ($type[$j] == "numeric" && $data[$i][$j] == ''){
-                echo "0";
-            } else {
-                echo $data[$i][$j];
-            }
-            if ($type[$j] == "string"){
-                echo "'";
-            }
-            if ($j<count($data[0])-1){
-                echo ",";
-            } else {
-                echo "]";
-            }
-        }
-        if ($i<count($data)-1){
-            echo ",\n";
-        } else {
-            echo "]);\n";
         }
     }
+    echo "]);\n";
 }
 function calcFields($data){
     for ($i=0;$i<count($data[0]);$i++){
-        /*if ($data[0][$i] == "age"){
-            for ($j=1;$j<count($data);$j++){
-                if (date('Y') - $data[$j][$i] < 1901){
-                    $data[$j][$i] = "";
-                }
-            }
-        } else */if ($data[0][$i] == 'overallrecentseason'){
+        if ($data[0][$i] == 'overallrecentseason'){
+            //array_push($data[0],'recency');
+            $data[0][$i] = 'recency';
             for ($k=1;$k<count($data);$k++){
                 $pos = strpos($data[$k][$i]," ");
                 $year = substr($data[$k][$i],0,$pos);
@@ -67,14 +62,15 @@ function calcFields($data){
                 } else {
                     $seas = 1;
                 }
-                if (date('n') > 8){
+                if (date('n') > 6 && date('n') < 10){
                     $ss = 4;
-                } else if (date('n') > 5){
+                } else if (date('n') > 2 && date('n') < 10){
                     $ss = 3;
-                } else if (date('n') > 2){
+                } else if (date('n') > 0 && date('n') < 10){
                     $ss = 2;
-                } else {
+                } else if (date('n') > 9){
                     $ss = 1;
+                    $year++;
                 }
                 $rec = 4*(date('Y')-$year)-($seas-$ss);
                 $data[$k][$i] = $rec;

@@ -38,14 +38,27 @@
                             <option value="Any">Any</option>
                         </select>
                     <hr>
-                    <li class="nav"><button type="button" class="span12 btn btn-info btn-small disabled">Export Data</button></li>
+                    <li class="nav"><button type="button" class="span12 btn btn-info btn-small reset">Clear Filters</button></li>
               
                 </ul>
             </div>
             <div class="span6">
                 <div class="row-fluid" id="barChart">
                 </div>
-                <hr>
+                <div class="row-fluid">
+                    <div class="span4">
+                        <hr style="margin-top:13px">
+                    </div>
+                    <div class="span4">
+                        <div class="btn-group" id="btn-toggle" style="margin:0px 0px 10px 5px">
+                          <button class="btn btn-small btn-inverse switch" id="perc">Percentage</button>
+                          <button class="btn btn-small switch" id="tot">Total</button>
+                        </div>
+                    </div>
+                    <div class="span4">
+                        <hr style="margin-top:13px">
+                    </div>
+                </div>
                 <div class="row-fluid" id="groups1">
                     <div class="span3">
                         <label class="checkbox" id="aquatics">
@@ -107,6 +120,11 @@
                             <input type="checkbox" checked> Special Recreation
                         </label>
                     </div>
+                    <div class="span3">
+                        <label class="checkbox" id="sall">
+                            <input type="checkbox" checked id="all"> <strong>Select All</strong>
+                        </label>
+                    </div>
                 </div>
             </div>
             <div class="span3 well well-small sidebar-nav" id="rightFilters">
@@ -136,10 +154,9 @@
                             <option value="Any">Any</option>
                         </select>
                     <hr>
-                    <li class="nav"><button type="button" class="span12 btn btn-danger btn-small disabled">Export Data</button></li>
+                    <li class="nav"><button type="button" class="span12 btn btn-danger btn-small reset" id="rReset">Clear Filters</button></li>
                 </ul>
             </div>
         </div>
     </div>
 </div>
-<hr>

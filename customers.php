@@ -1,10 +1,10 @@
 <div class="page-header">
   <h1>Customer Segmentation <small>Filter and Sort</small></h1>
 </div>
-<div class="container-fluid">
+<div class="container-fluid" id="full">
     
-      <div class="well well-small sidebar-nav">
-          <div class="span11" id ="max_div">
+      <div class="well well-small sidebar-nav" id="filterwell">
+          <div class="span11" id ="max_div" style="display:none">
               <p class="pull-right" id="maximize"><i class="icon-plus-sign"></i></p>
           </div>
           <div class="row-fluid" id="filters">
@@ -21,7 +21,7 @@
                             <option value="water">Water Lovers</option>
                         </select>
                   <li class="nav-header">Park</li>
-                    <select class="span12 filter" id="parks">
+                    <select class="span12 filter" id="parks2">
                         <option value="Any">Any</option>
                     </select>
                   <li class="nav-header">Gender</li>
@@ -85,15 +85,15 @@
                           <input type="checkbox" class="target" id="recreation"> Special Recreation
                       </label>
                       </li>
-                  </ul>
-                  </div>
-                  <div class="span6">
-                  <ul class="nav nav-list">
                       <li>
                       <label class="checkbox">
                           <input type="checkbox" class="target" id="child"> Early Childhood
                       </label>
                       </li>
+                  </ul>
+                  </div>
+                  <div class="span6">
+                  <ul class="nav nav-list">
                       <li>
                       <label class="checkbox">
                           <input type="checkbox" class="target" id="sports"> Sports
@@ -114,11 +114,11 @@
                           <input type="checkbox" class="target" id="nature"> Nature
                       </label>
                       </li>
-                      
-                    <button type="button" id="submit" class="span12 btn btn-primary btn-small">Submit</button>
+                    <button type="button" id="submit" class="span12 btn btn-primary btn-small" style="margin-bottom:10px">Submit</button>
+                    <button type="button" id="getemail" class="span12 btn btn-info btn-small">Email List &raquo;</button>
                     <!--<li class="nav-header"><br/></li>
                     <button type="button" class="span12 btn btn-danger btn-small"><i class="icon-envelope icon-white"></i>  Email List &raquo;</button>-->
-                  </ul>
+                  </ul> 
                   </div>
               </div>
           </div>
@@ -128,4 +128,4 @@
           <div class="span12" id="table_div"></div>
       </div><!--/row-->
     </div><!--/.fluid-container-->
-    <hr>
+    

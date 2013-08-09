@@ -2000,7 +2000,7 @@ legend + .control-group {
 
 table {
   max-width: 100%;
-  background-color: transparent;
+  background-color: white;
   border-collapse: collapse;
   border-spacing: 0;
 }
@@ -2008,7 +2008,7 @@ table {
 .table {
   width: 68%;
   margin-bottom: 20px;
-  margin-left: 30%;
+  margin-left: 0px;
 }
 
 .table th,
@@ -2051,10 +2051,10 @@ table {
 }
 
 .table-bordered {
-  border: 1px solid #dddddd;
+  border: 2px solid black;
   border-collapse: separate;
   *border-collapse: collapse;
-  border-left: 0;
+  border-left: 2;
   -webkit-border-radius: 4px;
      -moz-border-radius: 4px;
           border-radius: 4px;

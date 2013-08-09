@@ -55,6 +55,13 @@
     ?>
     
     function initialize(){
+        var url = document.URL;
+        var pos = url.indexOf("#",url);
+        if (pos > 0){
+            var go = url.substr(pos+1);
+        } else {
+            go = "home"
+        }
         <?php
         //Assemble tables in PHP
         $parkdata = addParkData($parks,$latlong);
@@ -66,11 +73,11 @@
         
         ?>
         //Load Welcome Page
-        navScripts("home",customers,parkdata);
+        navScripts(go,customers,parkdata);
+        $("#"+go).addClass("active");
         
         //Controller for Navigation Menu
         $(".reload").click(function(){
-            $("#main-container").html("<p class='spinner' style='text-align:center;top:100px;position:relative'><img style='top:50px;height:50px' src='assets/img/spinner.gif'></p>");
             var hash = this.href.indexOf("#");
             var val = this.href.substring(hash+1);
             $("li").removeClass("active");
@@ -91,10 +98,10 @@
           <a class="brand reload" href="#home"><img class="img-circle" style="height:40px;position:absolute;top:0px" src="assets/img/CPDlogo.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chicago Park District</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li id="home" class="active"><a class="reload" href="#home">Home</a></li>
+              <li id="home"><a class="reload" href="#home">Home</a></li>
               <li id="parks"><a class="reload" href="#parks">Park Performance</a></li>
               <li id="customers"><a class="reload" href="#customers">Customers</a></li>
-              <li id="about"><a class="reload" href="#about">About</a></li>
+              <li id="contact"><a class="reload" href="#contact">Contact Us</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -103,6 +110,7 @@
       
     <div id="main-container" class="container"></div>
     <!-- /container -->
+    <hr>
     <div id="footer">
       <div class="container">
         <p class="muted credit">Portal courtesy of 

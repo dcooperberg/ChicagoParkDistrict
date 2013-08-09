@@ -5,7 +5,7 @@
 function drawTable(data,div) {
     var output = new Array();
     var titles = new Array();
-    var cols = [0,1,2,3,4,5,20];
+    var cols = [0,1,2,3,4,5,17,20];
     for (var i=0;i<cols.length;i++){
         titles.push(data.getColumnLabel(cols[i]));
     }
@@ -20,10 +20,15 @@ function drawTable(data,div) {
                 temp.push(data.getValue(j,cols[k]));
             }
         }
-        output.push(temp)
+        if (temp[0] > 0){
+            output.push(temp)
+        }
     }
     var results = google.visualization.arrayToDataTable(output);
-    
+    var labels = ['ID','First','Last','Email Address','Age','Gender','Favorite Park','Latest Program']
+    for (var i=0;i<results.getNumberOfColumns();i++){
+        results.setColumnLabel(i,labels[i]);
+    }
     var options = {
         showRowNumber: false,
         page: 'enable',
@@ -31,6 +36,7 @@ function drawTable(data,div) {
     }
     var table = new google.visualization.Table(document.getElementById(div));
     table.draw(results, options);
+    return results;
 }
 
 function getSubset(data,str,index){
@@ -180,11 +186,13 @@ function getSubset2(data,str,index){
     var results = google.visualization.arrayToDataTable(output);
     return results;
 }
-function loadmap(parkdata,season,year){
+function loadmap(parkdata,season,year,zoom,center){
     var map;
     var mapOptions = {
-        zoom: 11,
-        center: new google.maps.LatLng(41.850233,-87.638532),
+        minZoom: 10,
+        streetViewControl:false,
+        zoom: zoom,
+        center: center,//new google.maps.LatLng(41.850233,-87.638532),
         mapTypeId: google.maps.MapTypeId.TERRAIN
     };
     $('#map_canvas').height("480px");
@@ -216,7 +224,6 @@ function loadmap(parkdata,season,year){
         }
         return formatted;
     };
-    
     map = new google.maps.Map(document.getElementById('map_canvas'),mapOptions);
     //Add polygons
     jQuery.getJSON('assets/data/parks.json',function(data){
@@ -231,7 +238,7 @@ function loadmap(parkdata,season,year){
                 strokeOpacity: 0.7,
                 strokeWeight: 1,
                 fillColor: "#079626",
-                fillOpacity: 0.3
+                fillOpacity: 0.2
             });
             /*google.maps.event.addListener(polygon,"mouseover",function(){
                 this.setOptions({filleOpacity: 5});
@@ -297,16 +304,29 @@ function loadmap(parkdata,season,year){
                 }
                 found = true;
             }
+            /*if (parkdata.getValue(j,0) == parks[i]){
+                lat = parkdata.getValue(j,12);
+                lng = parkdata.getValue(j,13);
+                title = parkdata.getValue(j,11);
+                hood = parkdata.getValue(j,8);
+                area = parkdata.getValue(j,6);
+                reg = parkdata.getValue(j,5);
+            }*/
         }        
         
         var myLatlng = new google.maps.LatLng(lat,lng);
-        var util = enroll/spots;
-        var mColor = 'red';
-        if (util >= .75){
-            mColor = 'green';
-        } else if (util >= .5){
-            mColor = 'yellow';
+        var mColor = 'red'
+        if (spots > 0){
+            var util = enroll/spots;
+            if (util >= .75){
+                mColor = 'green';
+            } else if (util >= .5){
+                mColor = 'yellow';
+            }
+        } else {
+            mColor = 'black';
         }
+        
         
         var marker = new google.maps.Marker({
             position: myLatlng,
@@ -330,8 +350,13 @@ function loadmap(parkdata,season,year){
         })*/
         google.maps.event.addListener(marker,"click",function(){
             $("#chart_title").html("<h1><small>"+this.title+"</small></h1>");
-            drawLine(parkdata,this.title);
+            var ttt = this.title;
+            drawLine(parkdata,ttt);
+            $(".btn").click(function(){
+                drawLine(parkdata,ttt);
+            })
         })
+        
         
         var temp =[marker,parkdata.getValue(i,11),util,hood,area,reg];
         markers.push(temp);
@@ -339,8 +364,11 @@ function loadmap(parkdata,season,year){
     for (var k=0;k<markers.length;k++){
         markers[k][0].setMap(map);
     }
+    return map;
 }
 function drawLine(parkdata,park){
+    $("#btn-toggle").show();
+    var gType = $(".btn-inverse").text();
     var seasons = new Array();
     var spots = new Array();
     var enroll = new Array();
@@ -376,28 +404,73 @@ function drawLine(parkdata,park){
             mon = 2;
         }
         if (sea != "Events"){
-            output.push([new Date(parseInt(seasons[k].substr(0,loc)),mon),0.7,0.5,Math.min(1,enroll[k]/spots[k])]);
+            var val = enroll[k];
+            if (gType == "Percentage"){
+                val = Math.min(1,enroll[k]/spots[k])
+            }
+            output.push([new Date(parseInt(seasons[k].substr(0,loc)),mon),0.75,0.5,val]);
         }
     }
     var results = new google.visualization.DataTable();
     results.addColumn('date', 'Season');
     results.addColumn('number', 'Green');
     results.addColumn('number', 'Yellow');
-    results.addColumn('number', 'Utilization');
+    if (gType == "Percentage"){
+        results.addColumn('number', 'Utilization');
+    } else {
+        results.addColumn('number', 'Enrollment');
+    }
     for (var l=0;l<output.length;l++){
         results.addRow(output[l]);
     }
     results.sort(0);
-    //var results = google.visualization.arrayToDataTable(output);
-    var options = {
+    var results2 = new google.visualization.DataTable();
+    results2.addColumn('string', 'Season');
+    results2.addColumn('number', 'Green');
+    results2.addColumn('number', 'Yellow');
+    if (gType == "Percentage"){
+        results2.addColumn('number', 'Utilization');
+    } else {
+        results2.addColumn('number', 'Enrollment');
+    }
+    for (var m=0;m<results.getNumberOfRows();m++){
+        var date = results.getValue(m,0);
+        var season = "";
+        if (date.getMonth() == 0){
+            season = "Winter "+date.getFullYear();
+        } else if (date.getMonth() == 2){
+            season = "Spring "+date.getFullYear();
+        } else if (date.getMonth() == 5){
+            season = "Summer "+date.getFullYear();
+        } else if (date.getMonth() == 8){
+            season = "Fall "+date.getFullYear();
+        }
+        console.log(season);
+        results2.addRow([season,results.getValue(m,1),results.getValue(m,2),Math.round(10000*results.getValue(m,3))/10000])
+    }
+
+    var pOptions = {
         legend: {position: 'none'},
-        chartArea: {left:60,top:10,width:"85%",height:"60%"},
+        chartArea: {left:70,top:10,width:"75%",height:"85%"},
         vAxis: {title:'Park Utilization',format:'#%', minValue: 0, maxValue: 1},
-        hAxis: {},
-        series: {0:{color:'#99ff99'},1:{color:'#ff9999'},2:{color:'blue',pointSize:6,curveType:'linear',lineWidth:3}}
+        hAxis: {viewWindow:{max:results2.getNumberOfRows()-.499,min:0.5}},
+        series: {0:{color:'#317730'},1:{color:'#c23536'},2:{color:'blue',pointSize:6,curveType:'linear',lineWidth:3}}
+    }
+    var tOptions = {
+        legend: {position: 'none'},
+        chartArea: {left:70,top:10,width:"75%",height:"85%"},
+        vAxis: {title:'Park Enrollment', minValue: 0},
+        hAxis: {viewWindow:{max:results2.getNumberOfRows()-.499,min:0.5}},
+        series: {0:{color:'blue',pointSize:6,curveType:'linear',lineWidth:3}}
     }
     var line = new google.visualization.LineChart(document.getElementById('line_div'));
-    line.draw(results, options);
+    if (gType == "Percentage"){
+        line.draw(results2, pOptions);
+    } else {
+        results2.removeColumn(1);
+        results2.removeColumn(1);
+        line.draw(results2, tOptions);
+    }
 }
 
 function barData(parkData){
@@ -426,6 +499,7 @@ function barData(parkData){
     return results;
 }
 function barData2(parkData,parkData2,groups){
+    var gType = $(".btn-inverse").text();
     var spots = new Array();
     var enroll = new Array();
     for (var i=0;i<groups.length;i++){
@@ -460,11 +534,17 @@ function barData2(parkData,parkData2,groups){
     output.push(["Group","Left","Right"]);
     for (var m=0;m<groups.length;m++){
         if (groups[m] != "Partnership Rental Offerings"){
-            var util = Math.round(10000*(enroll[m]/spots[m]))/10000;
+            var util = enroll[m];
+            if (gType == "Percentage"){
+                util = Math.min(Math.round(10000*(enroll[m]/spots[m]))/10000,1);
+            }
             var match = false;
             for (var n=0;n<groups2.length;n++){
                 if (groups2[n] == groups[m]){
-                    var util2 = Math.round(10000*(enroll2[n]/spots2[n]))/10000;
+                    var util2 = enroll2[n];
+                    if (gType == "Percentage"){
+                        util2 = Math.min(Math.round(10000*(enroll2[n]/spots2[n]))/10000,1);
+                    }
                     output.push([groups[m],util,util2]);
                     match = true;
                 }
